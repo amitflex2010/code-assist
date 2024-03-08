@@ -23,6 +23,7 @@ function App() {
      <BrowserRouter>
      <Routeing/>
       <Routes>
+      <Route exact path='/' element={<Buildingcode/>}/>
        <Route path='/Build' element={<Buildingcode/>}/> 
        <Route path='/Help' element={<HelpmeCodes/>} />
        <Route path='/Modify' element={<ModifyCode/>} />
@@ -33,8 +34,6 @@ function App() {
        <Route path='/Providers' element={<Buildingcode/>}/>
        <Route path='/Other' element={<Buildingcode/>}/>
 
-         
-       
       </Routes>
      </BrowserRouter>
 

@@ -1,8 +1,7 @@
-import React from 'react';
-import { useState } from 'react';
-export default function AccordiansRight(){
-
-    const [activeSection, setActiveSection] = useState(null);
+import React from "react";
+import { useState } from "react";
+export default function AccordiansRight() {
+  const [activeSection, setActiveSection] = useState("ClaimLine");
 
   const handleAccordionClick = (section) => {
     setActiveSection(activeSection === section ? null : section);
@@ -11,11 +10,18 @@ export default function AccordiansRight(){
   return (
     <div className="accordion">
       {/* Accordion Section 1: ClaimLine */}
-      <div className={`accordion-section ${activeSection === 'ClaimLine' ? 'active' : ''}`}>
-        <div className="accordion-header" onClick={() => handleAccordionClick('ClaimLine')}>
-          ClaimLine ▼
+      <div
+        className={`accordion-section ${
+          activeSection === "ClaimLine" ? "active" : ""
+        }`}
+      >
+        <div
+          className="accordion-header"
+          onClick={() => handleAccordionClick("ClaimLine")}
+        >
+          <div>ClaimLine</div> <div>▼</div>
         </div>
-        {activeSection === 'ClaimLine' && (
+        {activeSection === "ClaimLine" && (
           <div className="accordion-content">
             {/* Table inside ClaimLine */}
             <table>
@@ -80,20 +86,40 @@ export default function AccordiansRight(){
       </div>
 
       {/* Accordion Section 2: Claim Header */}
-      <div className={`accordion-section ${activeSection === 'ClaimHeader' ? 'active' : ''}`}>
-        <div className="accordion-header" onClick={() => handleAccordionClick('ClaimHeader')}>
-          Claim Header ▼
+      <div
+        className={`accordion-section ${
+          activeSection === "ClaimHeader" ? "active" : ""
+        }`}
+      >
+        <div
+          className="accordion-header"
+          onClick={() => handleAccordionClick("ClaimHeader")}
+        >
+          <div>Claim Header</div> <div>▼</div>
         </div>
-        {/* Content for Claim Header section */}
+        {activeSection === "ClaimHeader" && (
+          <div className="accordion-content">
+            Content for Claim Header section{" "}
+          </div>
+        )}
       </div>
 
       {/* Accordion Section 3: Claim Diagnosis */}
-      <div className={`accordion-section ${activeSection === 'ClaimDiagnosis' ? 'active' : ''}`}>
-        <div className="accordion-header" onClick={() => handleAccordionClick('ClaimDiagnosis')}>
-          Claim Diagnosis ▼
+      <div
+        className={`accordion-section ${
+          activeSection === "ClaimDiagnosis" ? "active" : ""
+        }`}
+      >
+        <div
+          className="accordion-header"
+          onClick={() => handleAccordionClick("ClaimDiagnosis")}
+        >
+          <div>Claim Diagnosis</div> <div>▼</div>
         </div>
-        {/* Content for Claim Diagnosis section */}
+        {activeSection === "ClaimDiagnosis" && (
+          <div> Content for Claim Diagnosis section </div>
+        )}
       </div>
     </div>
-  )
+  );
 }

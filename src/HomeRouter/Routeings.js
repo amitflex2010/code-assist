@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 export default function Routeing(){
 
-    const [activeLink, setActiveLink] = useState('');
+    const [activeLink, setActiveLink] = useState('/Build');
 
   const handleNavLinkClick = (link) => {
     setActiveLink(link);
