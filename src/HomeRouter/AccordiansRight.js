@@ -1,125 +1,56 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
-export default function AccordiansRight() {
+import { FaTimes, FaCheck } from "react-icons/fa";
+import Table from "../components/Table/tables";
+import Accordion from "../components/Accordion/Accordion";
+export default function AccordiansRight({ tableData }) {
   const [activeSection, setActiveSection] = useState("ClaimLine");
+  const [claimLine, setclaimLine] = useState([]);
+  const [claimHeader, setClaimHeader] = useState([]);
+  const [claimDiagnosis, setClaimDiagnosis] = useState([]);
+
+  const [accordionData, setAccordionData] = useState([]);
 
   const handleAccordionClick = (section) => {
     setActiveSection(activeSection === section ? null : section);
   };
 
+  useEffect(() => {
+    const claimHeaderData = tableData
+      .filter((item) => item.tableName === "Claim Header")
+      .map((value) => {
+        return {
+          claimLine: value.columnLine,
+          selected: "Yes",
+          summarized: "No",
+          usedinfilter: "No",
+          usedinjoin: "No",
+        };
+      });
+    setClaimHeader(claimHeaderData);
+    const claimDiagnosisData = tableData
+      .filter((item) => item.tableName === "Claim Diagnosis")
+      .map((value) => {
+        return {
+          claimLine: value.columnLine,
+          selected: "Yes",
+          summarized: "No",
+          usedinfilter: "No",
+          usedinjoin: "No",
+        };
+      });
+    setClaimDiagnosis(claimDiagnosisData);
+    const accordionData = tableData.map((item) => item.tableName);
+    const uniqueAccordionList = accordionData.filter(
+      (value, index) => accordionData.indexOf(value) === index
+    );
+
+    setAccordionData(uniqueAccordionList);
+  }, [tableData]);
+
   return (
     <div className="accordion">
-      {/* Accordion Section 1: ClaimLine */}
-      <div
-        className={`accordion-section ${
-          activeSection === "ClaimLine" ? "active" : ""
-        }`}
-      >
-        <div
-          className="accordion-header"
-          onClick={() => handleAccordionClick("ClaimLine")}
-        >
-          <div>ClaimLine</div> <div>▼</div>
-        </div>
-        {activeSection === "ClaimLine" && (
-          <div className="accordion-content">
-            {/* Table inside ClaimLine */}
-            <table>
-              <thead>
-                <tr>
-                  <th>columnLine</th>
-                  <th>selected</th>
-                  <th>summarized</th>
-                  <th>used in filter</th>
-                  <th>used in join</th>
-                </tr>
-              </thead>
-              <tbody>
-                {/* Add your table rows here */}
-                <tr>
-                  <td>Data 1</td>
-                  <td>Selected</td>
-                  <td>Summarized</td>
-                  <td>Yes</td>
-                  <td>Yes</td>
-                </tr>
-                <tr>
-                  <td>Data 2</td>
-                  <td>Not Selected</td>
-                  <td>Summarized</td>
-                  <td>No</td>
-                  <td>Yes</td>
-                </tr>
-                <tr>
-                  <td>Data 3</td>
-                  <td>Selected</td>
-                  <td>Summarized</td>
-                  <td>Yes</td>
-                  <td>Yes</td>
-                </tr>
-                <tr>
-                  <td>Data 4</td>
-                  <td>Selected</td>
-                  <td>Summarized</td>
-                  <td>Yes</td>
-                  <td>Yes</td>
-                </tr>
-                <tr>
-                  <td>Data 5</td>
-                  <td>Selected</td>
-                  <td>Summarized</td>
-                  <td>Yes</td>
-                  <td>Yes</td>
-                </tr>
-                <tr>
-                  <td>Data 6</td>
-                  <td>Selected</td>
-                  <td>Summarized</td>
-                  <td>Yes</td>
-                  <td>Yes</td>
-                </tr>
-                {/* Add more rows if needed */}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </div>
-
-      {/* Accordion Section 2: Claim Header */}
-      <div
-        className={`accordion-section ${
-          activeSection === "ClaimHeader" ? "active" : ""
-        }`}
-      >
-        <div
-          className="accordion-header"
-          onClick={() => handleAccordionClick("ClaimHeader")}
-        >
-          <div>Claim Header</div> <div>▼</div>
-        </div>
-        {activeSection === "ClaimHeader" && (
-          <div className="accordion-content">
-            Content for Claim Header section{" "}
-          </div>
-        )}
-      </div>
-
-      {/* Accordion Section 3: Claim Diagnosis */}
-      <div
-        className={`accordion-section ${
-          activeSection === "ClaimDiagnosis" ? "active" : ""
-        }`}
-      >
-        <div
-          className="accordion-header"
-          onClick={() => handleAccordionClick("ClaimDiagnosis")}
-        >
-          <div>Claim Diagnosis</div> <div>▼</div>
-        </div>
-        {activeSection === "ClaimDiagnosis" && (
-          <div> Content for Claim Diagnosis section </div>
-        )}
-      </div>
+      <Accordion accordionData={accordionData} originalData={tableData} />
     </div>
   );
 }

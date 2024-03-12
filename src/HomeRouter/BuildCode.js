@@ -1,17 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
 import newcloud from "../images/clouds.png";
 import copy from "../images/copy.jpg";
 import outp from "../images/output.jpg";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useAsyncError } from "react-router-dom";
 import AccordiansRight from "./AccordiansRight";
 import { status } from "../utils/data";
 
 import DropDownBox from "../components/DropDownBox/index";
+import { getClaimDocs } from "../services/ApiService";
+
+
 
 export default function Buildingcode() {
   const [activeLink, setActiveLink] = useState("/Claim");
+  const [tableData, setTableData] = useState([]);
+
+  useEffect( () => {
+    FetchData();
+  }, []);
+
+  async function FetchData(){
+    const data = await getClaimDocs();
+    setTableData(data);
+  }
 
   const handleNavLinkClick = (link) => {
     setActiveLink(link);
@@ -166,7 +179,7 @@ export default function Buildingcode() {
                 <button className="outline-button">Export to excel</button>
               </div>
               <div className="Acdcls">
-                <AccordiansRight />
+                {tableData && <AccordiansRight tableData={tableData} />}
               </div>
             </div>
           </div>

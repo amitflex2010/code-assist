@@ -1,0 +1,64 @@
+{
+  "document": [
+    {
+      "domain": "Claims",
+      "tableName": "Claim Line",
+      "columnLine": "Data 1"
+    },
+    {
+      "columnLine": "Data 2",
+      "tableName": "Claim Line",
+      "domain": "Claims"
+    },
+    {
+      "columnLine": "Data 3",
+      "tableName": "Claim Line",
+      "domain": "Claims"
+    },
+    {
+      "columnLine": "Data 4",
+      "tableName": "Claim Line",
+      "domain": "Claims"
+    },
+    {
+      "domain": "Claims",
+      "tableName": "Claim Header",
+      "columnLine": "Data 1"
+    },
+    {
+      "columnLine": "Data 2",
+      "tableName": "Claim Header",
+      "domain": "Claims"
+    },
+    {
+      "columnLine": "Data 3",
+      "tableName": "Claim Header",
+      "domain": "Claims"
+    },
+    {
+      "columnLine": "Data 4",
+      "tableName": "Claim Header",
+      "domain": "Claims"
+    },
+    {
+      "domain": "Claims",
+      "tableName": "Claim Diagnosis",
+      "columnLine": "Data 1"
+    },
+    {
+      "columnLine": "Data 2",
+      "tableName": "Claim Diagnosis",
+      "domain": "Claims"
+    },
+    {
+      "columnLine": "Data 3",
+      "tableName": "Claim Diagnosis",
+      "domain": "Claims"
+    },
+    {
+      "columnLine": "Data 4",
+      "tableName": "Claim Diagnosis",
+      "domain": "Claims"
+    }
+  ]
+}
