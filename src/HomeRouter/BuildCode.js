@@ -10,26 +10,36 @@ import { status } from "../utils/data";
 
 import DropDownBox from "../components/DropDownBox/index";
 import { getClaimDocs } from "../services/ApiService";
+import jsonData from '../assets/db.json'
 
 
 
 export default function Buildingcode() {
   const [activeLink, setActiveLink] = useState("/Claim");
   const [tableData, setTableData] = useState([]);
+  const [tabs, setTabs] = useState([]);
+  const [activeDomain, setActiveDomain] = useState(null);
+   const [selectedOption, setSelectedOption] = useState(null);
 
+ 
+  const handleNavLinkClick = (domain) => {
+    setActiveLink(`/${domain}`);
+    setActiveDomain(domain === activeDomain ? null : domain);
+  };
   useEffect( () => {
     FetchData();
+    
   }, []);
 
   async function FetchData(){
     const data = await getClaimDocs();
+    const uniqueDomains = [...new Set(data.map(item => item.domain))];
+    setTabs(uniqueDomains);
     setTableData(data);
   }
+  
 
-  const handleNavLinkClick = (link) => {
-    setActiveLink(link);
-  };
-  const [selectedOption, setSelectedOption] = useState(null);
+  
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);
@@ -122,67 +132,40 @@ export default function Buildingcode() {
 
           <div className="ParentclshomeRighttab">
             <div className="RoutngclsRighttab">
-              <ul className="routerparntrighttab">
-                <li>
-                  <NavLink
-                    className={`nav-linksright ${
-                      activeLink === "/Claim" ? "active" : ""
-                    }`}
-                    to="/Claim"
-                    onClick={() => handleNavLinkClick("/Claim")}
-                  >
-                    Claims
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    className={`nav-linksright ${
-                      activeLink === "/Eligibility" ? "active" : ""
-                    }`}
-                    to="/Eligibility"
-                    onClick={() => handleNavLinkClick("/Eligibility")}
-                  >
-                    Eligibility
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    className={`nav-linksright ${
-                      activeLink === "/Providers" ? "active" : ""
-                    }`}
-                    to="/Providers"
-                    onClick={() => handleNavLinkClick("/Providers")}
-                  >
-                    Providers
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    className={`nav-linksright ${
-                      activeLink === "/Other" ? "active" : ""
-                    }`}
-                    to="/Other"
-                    onClick={() => handleNavLinkClick("/Other")}
-                  >
-                    Others
-                  </NavLink>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="dropdowncontainer">
+               <ul className="routerparntrighttab">
+            {tabs.map(domain => (
+             
+              <li key={domain}>
+                <NavLink
+                  className={`nav-linksright ${
+                    activeLink === `/${domain}` ? "active" : ""
+                  }`}
+                  to={`/${domain}`}
+                  onClick={() => handleNavLinkClick(domain)}
+                >
+                  {domain}
+                </NavLink>
+                <div className="dropdowncontainer">
             {/* Dropdown 1: ClaimLine */}
             <div className="textcontainer">
               <div className="btncontainer">
                 <button className="right-button">Update Query</button>
                 <button className="outline-button">Export to excel</button>
               </div>
+              
               <div className="Acdcls">
-                {tableData && <AccordiansRight tableData={tableData} />}
+                {tableData && <AccordiansRight tableData={tableData}  domain={domain} />}
               </div>
+              
             </div>
           </div>
+              </li>
+            ))}
+          </ul>
+            </div>
+          </div>
+
+         
         </div>
       </div>
     </>

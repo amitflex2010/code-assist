@@ -6,7 +6,7 @@
       "columnLine": "Data 1"
     },
     {
-      "columnLine": "Data 2",
+      "columnLine": "Data 21",
       "tableName": "Claim Line",
       "domain": "Claims"
     },
@@ -59,6 +59,44 @@
       "columnLine": "Data 4",
       "tableName": "Claim Diagnosis",
       "domain": "Claims"
+    },
+    {
+      "columnLine": "Data 4",
+      "tableName": "Claim Diagnosis",
+      "domain": "Eligibility"
+    },
+    {
+      "columnLine": "Data 4",
+      "tableName": "Claim Diagnosis",
+      "domain": "Eligibility"
+    }
+    ,
+    {
+      "columnLine": "Data 4",
+      "tableName": "Claim Diagnosis",
+      "domain": "Providers"
+    }
+    ,
+    {
+      "columnLine": "Data 4",
+      "tableName": "Claim Diagnosis",
+      "domain": "Others"
+    }
+    ,
+    {
+      "columnLine": "Data 4",
+      "tableName": "Claim Diagnosis",
+      "domain": "selfs"
+    },
+    {
+      "columnLine": "Data 4",
+      "tableName": "Claim Diagnosis",
+      "domain": "Alldata"
+    }
+    ,{
+      "columnLine": "Data 4",
+      "tableName": "Wow",
+      "domain": "Eligibility"
     }
   ]
 }

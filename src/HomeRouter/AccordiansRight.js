@@ -3,7 +3,7 @@ import { useState } from "react";
 import { FaTimes, FaCheck } from "react-icons/fa";
 import Table from "../components/Table/tables";
 import Accordion from "../components/Accordion/Accordion";
-export default function AccordiansRight({ tableData }) {
+export default function AccordiansRight({ tableData ,domain}) {
   const [activeSection, setActiveSection] = useState("ClaimLine");
   const [claimLine, setclaimLine] = useState([]);
   const [claimHeader, setClaimHeader] = useState([]);
@@ -16,31 +16,32 @@ export default function AccordiansRight({ tableData }) {
   };
 
   useEffect(() => {
-    const claimHeaderData = tableData
-      .filter((item) => item.tableName === "Claim Header")
-      .map((value) => {
-        return {
-          claimLine: value.columnLine,
-          selected: "Yes",
-          summarized: "No",
-          usedinfilter: "No",
-          usedinjoin: "No",
-        };
-      });
-    setClaimHeader(claimHeaderData);
-    const claimDiagnosisData = tableData
-      .filter((item) => item.tableName === "Claim Diagnosis")
-      .map((value) => {
-        return {
-          claimLine: value.columnLine,
-          selected: "Yes",
-          summarized: "No",
-          usedinfilter: "No",
-          usedinjoin: "No",
-        };
-      });
-    setClaimDiagnosis(claimDiagnosisData);
-    const accordionData = tableData.map((item) => item.tableName);
+    // const claimHeaderData = tableData
+    //   .filter((item) => item.tableName === "Claim Header")
+    //   .map((value) => {
+    //     return {
+    //       claimLine: value.columnLine,
+    //       selected: "Yes",
+    //       summarized: "No",
+    //       usedinfilter: "No",
+    //       usedinjoin: "No",
+    //     };
+    //   });
+    // setClaimHeader(claimHeaderData);
+    // const claimDiagnosisData = tableData
+    //   .filter((item) => item.tableName === "Claim Diagnosis")
+    //   .map((value) => {
+    //     return {
+    //       claimLine: value.columnLine,
+    //       selected: "Yes",
+    //       summarized: "No",
+    //       usedinfilter: "No",
+    //       usedinjoin: "No",
+    //     };
+    //   });
+    // setClaimDiagnosis(claimDiagnosisData);
+    const accordiondataperdomain=tableData.filter((item)=>item.domain===domain)
+    const accordionData = accordiondataperdomain.map((item) => item.tableName);
     const uniqueAccordionList = accordionData.filter(
       (value, index) => accordionData.indexOf(value) === index
     );

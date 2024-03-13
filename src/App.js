@@ -29,10 +29,10 @@ function App() {
        <Route path='/Modify' element={<ModifyCode/>} />
        <Route path='/testcode' element={<HelpCode/>} />
        <Route path='/translate' element={<TranslateCode/>} />
-       <Route path='/Claim' element={<Buildingcode/>}/>
+       {/* <Route path='/Claims' element={<Buildingcode/>}/>
        <Route path='/Eligibility' element={<Buildingcode/>}/>
        <Route path='/Providers' element={<Buildingcode/>}/>
-       <Route path='/Other' element={<Buildingcode/>}/>
+       <Route path='/Other' element={<Buildingcode/>}/> */}
 
       </Routes>
      </BrowserRouter>
