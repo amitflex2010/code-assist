@@ -156,6 +156,7 @@ export default function Buildingcode() {
               <div className="Acdcls">
                 {tableData && <AccordiansRight tableData={tableData}  domain={domain} />}
               </div>
+              <p>Hello</p>
               
             </div>
           </div>
