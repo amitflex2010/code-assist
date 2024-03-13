@@ -10,36 +10,36 @@ import { status } from "../utils/data";
 
 import DropDownBox from "../components/DropDownBox/index";
 import { getClaimDocs } from "../services/ApiService";
-import jsonData from '../assets/db.json'
-
-
+import jsonData from "../assets/db.json";
 
 export default function Buildingcode() {
-  const [activeLink, setActiveLink] = useState("/Claim");
-  const [tableData, setTableData] = useState([]);
   const [tabs, setTabs] = useState([]);
-  const [activeDomain, setActiveDomain] = useState(null);
-   const [selectedOption, setSelectedOption] = useState(null);
+  const [activeLink, setActiveLink] = useState(tabs.length > 0 ? tabs[0] : "/Claims");
+  const [tableData, setTableData] = useState([]);
+  
+  const [activeDomain, setActiveDomain] = useState(
+    tabs?.length > 0 ? tabs[0] : "Claims"
+  );
+  const [selectedOption, setSelectedOption] = useState(null);
 
- 
   const handleNavLinkClick = (domain) => {
     setActiveLink(`/${domain}`);
-    setActiveDomain(domain === activeDomain ? null : domain);
-  };
-  useEffect( () => {
-    FetchData();
     
+    setActiveDomain(domain);
+
+    console.log(domain);
+  };
+  useEffect(() => {
+    FetchData();
   }, []);
 
-  async function FetchData(){
+  async function FetchData() {
     const data = await getClaimDocs();
-    const uniqueDomains = [...new Set(data.map(item => item.domain))];
+    const uniqueDomains = [...new Set(data?.map((item) => item.domain))];
+    console.log(uniqueDomains, "uniqueDomains");
     setTabs(uniqueDomains);
     setTableData(data);
   }
-  
-
-  
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);
@@ -132,40 +132,40 @@ export default function Buildingcode() {
 
           <div className="ParentclshomeRighttab">
             <div className="RoutngclsRighttab">
-               <ul className="routerparntrighttab">
-            {tabs.map(domain => (
-             
-              <li key={domain}>
-                <NavLink
-                  className={`nav-linksright ${
-                    activeLink === `/${domain}` ? "active" : ""
-                  }`}
-                  to={`/${domain}`}
-                  onClick={() => handleNavLinkClick(domain)}
-                >
-                  {domain}
-                </NavLink>
-                <div className="dropdowncontainer">
-            {/* Dropdown 1: ClaimLine */}
-            <div className="textcontainer">
-              <div className="btncontainer">
-                <button className="right-button">Update Query</button>
-                <button className="outline-button">Export to excel</button>
-              </div>
-              
-              <div className="Acdcls">
-                {tableData && <AccordiansRight tableData={tableData}  domain={domain} />}
-              </div>
-              
+              <ul className="routerparntrighttab">
+                {tabs.map((domain) => (
+                  <li key={domain} className="li-style">
+                    <div
+                      className={`nav-linksright ${
+                        activeLink === `/${domain}` ? "active" : ""
+                      }`}
+                      onClick={() => handleNavLinkClick(domain)}
+                    >
+                      {domain}
+                    </div>
+                  </li>
+                ))}
+              </ul>
             </div>
-          </div>
-              </li>
-            ))}
-          </ul>
-            </div>
-          </div>
+            <div className="dropdowncontainer">
+              {/* Dropdown 1: ClaimLine */}
+              <div className="textcontainer">
+                <div className="btncontainer">
+                  <button className="right-button">Update Query</button>
+                  <button className="outline-button">Export to excel</button>
+                </div>
 
-         
+                {tableData && (
+                  <div className="Acdcls">
+                    <AccordiansRight
+                      tableData={tableData}
+                      domain={activeDomain}
+                    />
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </>

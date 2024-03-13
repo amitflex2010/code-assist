@@ -1,8 +1,9 @@
 
+import React from "react";
 import { FaTimes, FaCheck } from "react-icons/fa";
 const Table = ({tableData}) => {
 
-    console.log(tableData)
+    
   return (
     <div className="accordion-content">
       <table>
@@ -39,4 +40,4 @@ const Table = ({tableData}) => {
   );
 };
 
-export default Table;
+export default React.memo(Table);

@@ -79,18 +79,18 @@
     ,
     {
       "columnLine": "Data 4",
-      "tableName": "Claim Diagnosis",
+      "tableName": "Claim Header",
       "domain": "Others"
     }
     ,
     {
       "columnLine": "Data 4",
-      "tableName": "Claim Diagnosis",
+      "tableName": "Claim Line",
       "domain": "selfs"
     },
     {
       "columnLine": "Data 4",
-      "tableName": "Claim Diagnosis",
+      "tableName": "Claim Header",
       "domain": "Alldata"
     }
     ,{

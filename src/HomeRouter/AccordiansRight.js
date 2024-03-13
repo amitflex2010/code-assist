@@ -40,14 +40,16 @@ export default function AccordiansRight({ tableData ,domain}) {
     //     };
     //   });
     // setClaimDiagnosis(claimDiagnosisData);
-    const accordiondataperdomain=tableData.filter((item)=>item.domain===domain)
+    const accordiondataperdomain=tableData.filter((item)=>item.domain===domain);
+
+    console.log(accordiondataperdomain, 'accordiondataperdomain', domain)
     const accordionData = accordiondataperdomain.map((item) => item.tableName);
     const uniqueAccordionList = accordionData.filter(
       (value, index) => accordionData.indexOf(value) === index
     );
 
     setAccordionData(uniqueAccordionList);
-  }, [tableData]);
+  }, [tableData, domain]);
 
   return (
     <div className="accordion">

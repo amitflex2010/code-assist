@@ -140,7 +140,7 @@
   .textRow {
     display: flex;
     flex-direction: row;
-    margin-top: 50px;
+    margin-top: 18px;
   }
   .buttonRow {
     text-align: center;
@@ -203,7 +203,13 @@
   }
   .ParentclshomeRighttab {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    
+  }
+
+  .li-style{
+    width: 17%;
+    cursor: pointer;
   }
 
   .RoutngclsRighttab {
@@ -214,6 +220,7 @@
     list-style: none;
     padding: 0;
     display: flex;
+    width: 100%;
   }
 
   .nav-linksright {
@@ -242,7 +249,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 0px 0px 10px;
-    margin-top: -6px;
+    margin-top: -15px;
   }
 
   .textcontainer {
