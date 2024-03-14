@@ -9,6 +9,7 @@ import { status } from "../utils/data";
 import DropDownBox from "../components/DropDownBox/index";
 import { getClaimDocs } from "../services/ApiService";
 import BuildCodeRight from "./BuildCodeRight";
+import jsonData from '../assets/db.json';
 
 export default function Buildingcode() {
   const [tabs, setTabs] = useState([]);
@@ -22,7 +23,9 @@ export default function Buildingcode() {
   }, []);
 
   async function FetchData() {
-    const data = await getClaimDocs();
+     const data = jsonData.document
+     console.log("hellllo from my side ",data);
+    //const data=json
     const uniqueDomains = [...new Set(data?.map((item) => item.domain))];
 
     setTabs(uniqueDomains);

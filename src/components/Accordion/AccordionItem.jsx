@@ -9,10 +9,11 @@ const AccordionItem = ({ header, data, isOpen, onClick }) => {
 
   useEffect(() => {
     const claimLineData = data
-      .filter((item) => item.tableName === header)
-      .map((value) => {
+      // .filter((item) => item.tableName === header)
+      .map((value,ind) => {
+       
         return {
-          claimLine: value.columnLine,
+          claimLine: value.columnLine.map((column)=>column.column),
           selected: "Yes",
           summarized: "No",
           usedinfilter: "No",
