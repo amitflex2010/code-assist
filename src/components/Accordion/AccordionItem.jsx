@@ -8,20 +8,18 @@ const AccordionItem = ({ header, data, isOpen, onClick }) => {
   const [tableRows, setTableRows] = useState([]);
 
   useEffect(() => {
-    const claimLineData = data
-      // .filter((item) => item.tableName === header)
-      .map((value,ind) => {
-       
-        return {
-          claimLine: value.columnLine.map((column)=>column.column),
-          selected: "Yes",
-          summarized: "No",
-          usedinfilter: "No",
-          usedinjoin: "No",
-        };
-      });
+    const claimLineData = data.columnLine.map((item) => item.column);
+    const tableData = claimLineData.map((value) => {
+      return {
+        claimLine: value,
+        selected: "Yes",
+        summarized: "No",
+        usedinfilter: "No",
+        usedinjoin: "No",
+      };
+    });
 
-    setTableRows(claimLineData);
+    setTableRows(tableData);
   }, [data]);
 
   return (

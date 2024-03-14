@@ -27,7 +27,6 @@ export default function Buildingcode() {
      console.log("hellllo from my side ",data);
     //const data=json
     const uniqueDomains = [...new Set(data?.map((item) => item.domain))];
-
     setTabs(uniqueDomains);
     setTableData(data);
   }

@@ -1,20 +1,17 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import Accordion from "../components/Accordion/Accordion";
-export default function AccordiansRight({ tableData ,domain}) {
+export default function AccordiansRight({ tableData, domain }) {
   // const [activeSection, setActiveSection] = useState("ClaimLine");
-  
 
   const [accordionData, setAccordionData] = useState([]);
 
- 
   useEffect(() => {
-    const accordiondataperdomain=tableData.filter((item)=>item.domain===domain);
+    const accordiondataperdomain = tableData.filter(
+      (item) => item.domain === domain
+    );
 
-    const accordionData = accordiondataperdomain.map((item) => item.tableName);
-    // const uniqueAccordionList = accordionData.filter(
-    //   (value, index) => accordionData.indexOf(value) === index
-    // );
+    const accordionData = accordiondataperdomain.map((item) => item);
 
     setAccordionData(accordionData);
   }, [tableData, domain]);
