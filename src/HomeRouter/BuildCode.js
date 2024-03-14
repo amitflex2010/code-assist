@@ -10,6 +10,7 @@ import DropDownBox from "../components/DropDownBox/index";
 import { getClaimDocs } from "../services/ApiService";
 import BuildCodeRight from "./BuildCodeRight";
 import jsonData from '../assets/db.json';
+import Querybox from "./Querybox";
 
 export default function Buildingcode() {
   const [tabs, setTabs] = useState([]);
@@ -17,6 +18,7 @@ export default function Buildingcode() {
 
   const [tableData, setTableData] = useState([]);
   const [updquery,setupdquery]=useState([]);
+  const [updateTable, setUpdateTable] = useState(false);
 
 
 
@@ -32,7 +34,9 @@ export default function Buildingcode() {
     setupdquery(UpdateQuery);
   }
 
-
+  const handleOutpClick = () => {
+    setUpdateTable(!updateTable);
+  };
 
   const handleFileUpload = (event) => {
     const selectedFile = event.target.files[0];
@@ -90,26 +94,8 @@ export default function Buildingcode() {
             <span className="txtclsquery">Here is your desired output</span>
           </div>
           <div className="output-container">
-            <div className="output-box">
-              <div className="image-container">
-                <img src={copy} alt="Image 1" />
-
-                <img src={outp} alt="Image 2" />
-              </div>
-              <div className="content">
-                <p>This is your content...</p>
-              </div>
-            </div>
-            <div className="output-box">
-              <div className="image-container">
-                <img src={copy} alt="Image 1" />
-
-                <img src={outp} alt="Image 2" />
-              </div>
-              <div className="content">
-                <p>This is your content...</p>
-              </div>
-            </div>
+           
+            <Querybox handleOutpClick={handleOutpClick}/>
           </div>
         </div>
 
@@ -117,7 +103,7 @@ export default function Buildingcode() {
           {/* Content for the right section */}
 
           <br />
-          <BuildCodeRight tabs={tabs} tableData={tableData} updquery={updquery} />
+          <BuildCodeRight tabs={tabs} tableData={tableData} updquery={updquery} updateTable={updateTable} />
 
         </div>
       </div>

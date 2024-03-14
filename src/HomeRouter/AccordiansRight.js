@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import Accordion from "../components/Accordion/Accordion";
-export default function AccordiansRight({ tableData, domain,updquery }) {
-  console.log("updquery ka data",updquery)
+export default function AccordiansRight({ tableData, domain,updquery,updateTable }) {
+  console.log("updquery ka data  aya h ",updateTable)
+  console.log("upd h ",updquery)
   // const [activeSection, setActiveSection] = useState("ClaimLine");
 
   const [accordionData, setAccordionData] = useState([]);
@@ -19,7 +20,7 @@ export default function AccordiansRight({ tableData, domain,updquery }) {
 
   return (
     <div className="accordion">
-      <Accordion accordionData={accordionData} originalData={tableData} updquery={updquery} />
+      <Accordion accordionData={accordionData} originalData={tableData} updquery={updquery} updateTable={updateTable} />
     </div>
   );
 }

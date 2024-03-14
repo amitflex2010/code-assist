@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./Accordion.css";
 import AccordionItem from "./AccordionItem";
 
-const Accordion = ({ accordionData, originalData,updquery }) => {
+const Accordion = ({ accordionData, originalData,updquery,updateTable }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const handleItemClick = (index) => {
@@ -16,6 +16,7 @@ const Accordion = ({ accordionData, originalData,updquery }) => {
           key={index}
           header={item.tableName}
           data={item}
+          updateTable={updateTable}
           isOpen={activeIndex === index}
           onClick={() => handleItemClick(index)}
         />

@@ -4,14 +4,18 @@ import { RiArrowDropDownLine } from "react-icons/ri";
 import Table from "../Table/tables";
 import jsonData from '../../assets/db.json'
 
-const AccordionItem = ({ header, data, isOpen, onClick }) => {
+const AccordionItem = ({ header, data, isOpen, onClick,updateTable }) => {
   const contentHeight = useRef();
   const [tableRows, setTableRows] = useState([]);
+  console.log(updateTable,"isme kya value h ")
  const datasss=jsonData.UpdateQuery
   console.log(datasss,"Yeh Accordian se file ");
 
   useEffect(() => {
+    updateTableRows();
    
+  },[data, datasss,updateTable]);
+  const updateTableRows = () => {
     const claimLineData = data.columnLine.map((item) => item.column);
     const tableData = claimLineData.map((value) => {
       return {
@@ -23,13 +27,12 @@ const AccordionItem = ({ header, data, isOpen, onClick }) => {
       };
     });
     const updatedData = tableData.map((defaultItem) => {
-     
       const updatedItem = datasss.find((item) => (
         item.domain === data.domain &&
         item.tableName === data.tableName &&
-        item.column_Name === defaultItem.claimLine) );
-      if (updatedItem) {
-     
+        item.column_Name === defaultItem.claimLine)
+      );
+      if (updatedItem &&updateTable) {
         return {
           claimLine: updatedItem.column_Name,
           selected: updatedItem.Selected,
@@ -41,9 +44,9 @@ const AccordionItem = ({ header, data, isOpen, onClick }) => {
         return defaultItem;
       }
     });
-
     setTableRows(updatedData);
-  },[data, datasss]);
+  };
+
 
 
 
