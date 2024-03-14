@@ -2,7 +2,8 @@ import AccordiansRight from "./AccordiansRight";
 import React from 'react';
 import {useState} from 'react'
 
-export default function BuildCodeRight({tabs,tableData}){
+export default function BuildCodeRight({tabs,tableData,updquery}){
+  console.log(updquery,"update query datat")
   const [activeLink, setActiveLink] = useState(tabs.length > 0 ? tabs[0] : "/Claims");
   const [activeDomain, setActiveDomain] = useState(
     tabs?.length > 0 ? tabs[0] : "Claims"
@@ -52,6 +53,7 @@ return (
                     <AccordiansRight
                       tableData={tableData}
                       domain={activeDomain}
+                      updquery={updquery}
                     />
                   </div>
                 )}

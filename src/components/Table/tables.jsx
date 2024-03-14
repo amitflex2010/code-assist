@@ -1,7 +1,7 @@
 import React from "react";
 import { FaTimes, FaCheck } from "react-icons/fa";
 const Table = ({ tableData }) => {
-  console.log(tableData, "table ka data  bhai ");
+  
   return (
     <div className="accordion-content">
       <table>

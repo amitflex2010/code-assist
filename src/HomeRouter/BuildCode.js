@@ -13,8 +13,10 @@ import jsonData from '../assets/db.json';
 
 export default function Buildingcode() {
   const [tabs, setTabs] = useState([]);
+  const { document, UpdateQuery } = jsonData;
 
   const [tableData, setTableData] = useState([]);
+  const [updquery,setupdquery]=useState([]);
 
 
 
@@ -23,12 +25,13 @@ export default function Buildingcode() {
   }, []);
 
   async function FetchData() {
-     const data = jsonData.document
-     console.log("hellllo from my side ",data);
+     const data = jsonData.document;
+     console.log("hellllo from my side ",document,UpdateQuery);
     //const data=json
     const uniqueDomains = [...new Set(data?.map((item) => item.domain))];
     setTabs(uniqueDomains);
     setTableData(data);
+    setupdquery(UpdateQuery);
   }
 
 
@@ -116,7 +119,7 @@ export default function Buildingcode() {
           {/* Content for the right section */}
 
           <br />
-          <BuildCodeRight tabs={tabs} tableData={tableData} />
+          <BuildCodeRight tabs={tabs} tableData={tableData} updquery={updquery} />
 
         </div>
       </div>

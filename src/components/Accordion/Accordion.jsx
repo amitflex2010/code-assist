@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./Accordion.css";
 import AccordionItem from "./AccordionItem";
 
-const Accordion = ({ accordionData, originalData }) => {
+const Accordion = ({ accordionData, originalData,updquery }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const handleItemClick = (index) => {

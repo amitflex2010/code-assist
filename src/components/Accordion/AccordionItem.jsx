@@ -2,12 +2,16 @@ import { useEffect, useRef, useState } from "react";
 import "./Accordion.css";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import Table from "../Table/tables";
+import jsonData from '../../assets/db.json'
 
 const AccordionItem = ({ header, data, isOpen, onClick }) => {
   const contentHeight = useRef();
   const [tableRows, setTableRows] = useState([]);
+ const datasss=jsonData.UpdateQuery
+  console.log(datasss,"Yeh Accordian se file ");
 
   useEffect(() => {
+    console.log(data,"data ki value ")
     const claimLineData = data.columnLine.map((item) => item.column);
     const tableData = claimLineData.map((value) => {
       return {
@@ -18,9 +22,18 @@ const AccordionItem = ({ header, data, isOpen, onClick }) => {
         usedinjoin: "No",
       };
     });
+    const updatedData = datasss.map((item) => ({
+      claimLine: item.column_Name,
+      selected: item.Selected,
+      summarized: item.Summurized,
+      usedinfilter: item.Used_in_filter,
+      usedinjoin: item.Used_in_join,
+    }));
+    const combinedData = [...tableData, ...updatedData];
+    setTableRows(combinedData);
+  }, [data,datasss]);
 
-    setTableRows(tableData);
-  }, [data]);
+
 
   return (
     <div className="wrapper">

@@ -88,5 +88,41 @@
     }
     
     
-  ]
+  ],
+  "UpdateQuery":[{
+    "domain": "Claims",
+    "tableName": "Claim Header",
+    "column_Name":"Field1",
+    "Selected":"Y",
+    "Summurized":"N",
+    "Used_in_filter":"Y",
+    "Used_in_join":"N"
+    
+    
+
+  },
+  {
+    "domain": "Eligibility",
+    "tableName": "Claim Header",
+    "column_Name":"Field2",
+    "Selected":"Y",
+    "Summurized":"N",
+    "Used_in_filter":"Y",
+    "Used_in_join":"N"
+    
+    
+
+  },
+  {
+    "domain": "Providers",
+    "tableName": "Claim Header",
+    "column_Name":"Field3",
+    "Selected":"Y",
+    "Summurized":"N",
+    "Used_in_filter":"Y",
+    "Used_in_join":"Noooo"
+    
+    
+
+  }]
 }
