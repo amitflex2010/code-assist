@@ -1,13 +1,10 @@
 import React, { useEffect } from "react";
 import newcloud from "../images/clouds.png";
-import copy from "../images/copy.jpg";
-import outp from "../images/output.jpg";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
 import { status } from "../utils/data";
 
 import DropDownBox from "../components/DropDownBox/index";
-import { getClaimDocs } from "../services/ApiService";
 import BuildCodeRight from "./BuildCodeRight";
 import jsonData from '../assets/db.json';
 import Querybox from "./Querybox";
@@ -35,7 +32,7 @@ export default function Buildingcode() {
   }
 
   const handleOutpClick = () => {
-    setUpdateTable(!updateTable);
+    setUpdateTable(true);
   };
 
   const handleFileUpload = (event) => {

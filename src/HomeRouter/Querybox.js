@@ -14,7 +14,7 @@ export default function Querybox({ handleOutpClick }){
               <div className="image-container">
                 <img src={copy} alt="Image 1" />
 
-                <img src={outp} alt="Image 2" />
+                <img src={outp} alt="Image 2" onClick={handleImageClick}/>
               </div>
               <div className="content">
                 <p>This is your content...</p>
