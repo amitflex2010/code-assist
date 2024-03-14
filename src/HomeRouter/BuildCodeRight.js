@@ -1,63 +1,63 @@
-import React from "react";
 import AccordiansRight from "./AccordiansRight";
-import { useState } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { NavLink, useAsyncError } from "react-router-dom";
-export default function BuildCodeRight() {
-  const [activeLink, setActiveLink] = useState("/Claim");
-  const [tableData, setTableData] = useState([]);
-  const [tabs, setTabs] = useState([]);
+import React from 'react';
+import {useState} from 'react'
+
+export default function BuildCodeRight({tabs,tableData}){
+  const [activeLink, setActiveLink] = useState(tabs.length > 0 ? tabs[0] : "/Claims");
   const [activeDomain, setActiveDomain] = useState(
-    tabs.length > 0 ? tabs[0] : null
+    tabs?.length > 0 ? tabs[0] : "Claims"
   );
-  const [selectedOption, setSelectedOption] = useState(null);
+  
   const handleNavLinkClick = (domain) => {
     setActiveLink(`/${domain}`);
-    setActiveDomain(domain === activeDomain ? null : domain);
+    
+    setActiveDomain(domain);
+
+  
   };
-  return (
-    <>
-      <p>hello</p>
-      <div className="ParentclshomeRighttab">
-        <div className="RoutngclsRighttab">
-          <ul className="routerparntrighttab">
-            {tabs.map((domain) => (
-              <li key={domain}>
-                <div>
-                  <div
-                   
-                    onClick={() => handleNavLinkClick(domain)}
-                  >
-                    {domain}
-                  </div>
-                  
-                </div>
-                <div className="dropdowncontainer">
-                  {/* Dropdown 1: ClaimLine */}
-                  {activeDomain === domain && (
-                    <div className="textcontainer">
-                      <div className="btncontainer">
-                        <button className="right-button">Update Query</button>
-                        <button className="outline-button">
-                          Export to excel
-                        </button>
-                      </div>
-                      <div className="Acdcls">
-                        {tableData && (
-                          <AccordiansRight
-                            tableData={tableData}
-                            domain={activeDomain}
-                          />
-                        )}
-                      </div>
+return (
+<>
+
+          {/* Content for the right section */}
+
+          <br />
+
+          <div className="ParentclshomeRighttab">
+            <div className="RoutngclsRighttab">
+              <ul className="routerparntrighttab">
+                {tabs.map((domain) => (
+                  <li key={domain} className="li-style">
+                    <div
+                      className={`nav-linksright ${
+                        activeLink === `/${domain}` ? "active" : ""
+                      }`}
+                      onClick={() => handleNavLinkClick(domain)}
+                    >
+                      {domain}
                     </div>
-                  )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="dropdowncontainer">
+              {/* Dropdown 1: ClaimLine */}
+              <div className="textcontainer">
+                <div className="btncontainer">
+                  <button className="right-button">Update Query</button>
+                  <button className="outline-button">Export to excel</button>
                 </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </>
-  );
-}
+
+                {tableData && (
+                  <div className="Acdcls">
+                    <AccordiansRight
+                      tableData={tableData}
+                      domain={activeDomain}
+                    />
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        
+</>
+)}

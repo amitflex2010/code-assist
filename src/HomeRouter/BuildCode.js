@@ -4,31 +4,19 @@ import copy from "../images/copy.jpg";
 import outp from "../images/output.jpg";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
-import { NavLink, useAsyncError } from "react-router-dom";
-import AccordiansRight from "./AccordiansRight";
 import { status } from "../utils/data";
 
 import DropDownBox from "../components/DropDownBox/index";
 import { getClaimDocs } from "../services/ApiService";
-import jsonData from "../assets/db.json";
+import BuildCodeRight from "./BuildCodeRight";
 
 export default function Buildingcode() {
   const [tabs, setTabs] = useState([]);
-  const [activeLink, setActiveLink] = useState(tabs.length > 0 ? tabs[0] : "/Claims");
+
   const [tableData, setTableData] = useState([]);
-  
-  const [activeDomain, setActiveDomain] = useState(
-    tabs?.length > 0 ? tabs[0] : "Claims"
-  );
-  const [selectedOption, setSelectedOption] = useState(null);
 
-  const handleNavLinkClick = (domain) => {
-    setActiveLink(`/${domain}`);
-    
-    setActiveDomain(domain);
 
-    console.log(domain);
-  };
+
   useEffect(() => {
     FetchData();
   }, []);
@@ -36,15 +24,12 @@ export default function Buildingcode() {
   async function FetchData() {
     const data = await getClaimDocs();
     const uniqueDomains = [...new Set(data?.map((item) => item.domain))];
-    console.log(uniqueDomains, "uniqueDomains");
+
     setTabs(uniqueDomains);
     setTableData(data);
   }
 
-  const handleOptionClick = (option) => {
-    setSelectedOption(option);
-    // Add any additional logic you need when an option is clicked
-  };
+
 
   const handleFileUpload = (event) => {
     const selectedFile = event.target.files[0];
@@ -129,43 +114,8 @@ export default function Buildingcode() {
           {/* Content for the right section */}
 
           <br />
+          <BuildCodeRight tabs={tabs} tableData={tableData} />
 
-          <div className="ParentclshomeRighttab">
-            <div className="RoutngclsRighttab">
-              <ul className="routerparntrighttab">
-                {tabs.map((domain) => (
-                  <li key={domain} className="li-style">
-                    <div
-                      className={`nav-linksright ${
-                        activeLink === `/${domain}` ? "active" : ""
-                      }`}
-                      onClick={() => handleNavLinkClick(domain)}
-                    >
-                      {domain}
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="dropdowncontainer">
-              {/* Dropdown 1: ClaimLine */}
-              <div className="textcontainer">
-                <div className="btncontainer">
-                  <button className="right-button">Update Query</button>
-                  <button className="outline-button">Export to excel</button>
-                </div>
-
-                {tableData && (
-                  <div className="Acdcls">
-                    <AccordiansRight
-                      tableData={tableData}
-                      domain={activeDomain}
-                    />
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </>
