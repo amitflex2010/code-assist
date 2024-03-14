@@ -26,8 +26,6 @@ export default function Buildingcode() {
 
   async function FetchData() {
      const data = jsonData.document;
-     console.log("hellllo from my side ",document,UpdateQuery);
-    //const data=json
     const uniqueDomains = [...new Set(data?.map((item) => item.domain))];
     setTabs(uniqueDomains);
     setTableData(data);

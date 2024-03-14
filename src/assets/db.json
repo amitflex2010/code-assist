@@ -92,7 +92,7 @@
   "UpdateQuery":[{
     "domain": "Claims",
     "tableName": "Claim Header",
-    "column_Name":"Field1",
+    "column_Name":"Data1",
     "Selected":"Y",
     "Summurized":"N",
     "Used_in_filter":"Y",
@@ -102,27 +102,50 @@
 
   },
   {
-    "domain": "Eligibility",
+    "domain": "Claims",
     "tableName": "Claim Header",
-    "column_Name":"Field2",
+    "column_Name":"Data2",
+    "Selected":"N",
+    "Summurized":"N",
+    "Used_in_filter":"N",
+    "Used_in_join":"yeah"
+    
+    
+
+  },
+  {
+    "domain": "Claims",
+    "tableName": "Claim Diagnosis",
+    "column_Name":"Data2",
+    "Selected":"N",
+    "Summurized":"N",
+    "Used_in_filter":"N",
+    "Used_in_join":"Y"
+
+  },
+  {
+    "domain": "Eligibility",
+    "tableName": "Claim Diagnosis",
+    "column_Name":"Data2",
     "Selected":"Y",
     "Summurized":"N",
     "Used_in_filter":"Y",
-    "Used_in_join":"N"
+    "Used_in_join":"NNNNNN"
     
     
 
   },
   {
     "domain": "Providers",
-    "tableName": "Claim Header",
-    "column_Name":"Field3",
+    "tableName": "Claim Diagnosis",
+    "column_Name":"Data2",
     "Selected":"Y",
     "Summurized":"N",
     "Used_in_filter":"Y",
-    "Used_in_join":"Noooo"
+    "Used_in_join":"Nahi"
     
     
 
-  }]
+  }
+]
 }

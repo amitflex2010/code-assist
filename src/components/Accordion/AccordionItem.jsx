@@ -11,7 +11,7 @@ const AccordionItem = ({ header, data, isOpen, onClick }) => {
   console.log(datasss,"Yeh Accordian se file ");
 
   useEffect(() => {
-    console.log(data,"data ki value ")
+   
     const claimLineData = data.columnLine.map((item) => item.column);
     const tableData = claimLineData.map((value) => {
       return {
@@ -22,16 +22,28 @@ const AccordionItem = ({ header, data, isOpen, onClick }) => {
         usedinjoin: "No",
       };
     });
-    const updatedData = datasss.map((item) => ({
-      claimLine: item.column_Name,
-      selected: item.Selected,
-      summarized: item.Summurized,
-      usedinfilter: item.Used_in_filter,
-      usedinjoin: item.Used_in_join,
-    }));
-    const combinedData = [...tableData, ...updatedData];
-    setTableRows(combinedData);
-  }, [data,datasss]);
+    const updatedData = tableData.map((defaultItem) => {
+     
+      const updatedItem = datasss.find((item) => (
+        item.domain === data.domain &&
+        item.tableName === data.tableName &&
+        item.column_Name === defaultItem.claimLine) );
+      if (updatedItem) {
+     
+        return {
+          claimLine: updatedItem.column_Name,
+          selected: updatedItem.Selected,
+          summarized: updatedItem.Summurized,
+          usedinfilter: updatedItem.Used_in_join,
+          usedinjoin: updatedItem.Used_in_filter,
+        };
+      } else {
+        return defaultItem;
+      }
+    });
+
+    setTableRows(updatedData);
+  },[data, datasss]);
 
 
 
