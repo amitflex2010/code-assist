@@ -94,7 +94,7 @@
     "tableName": "Claim Header",
     "column_Name":"Data1",
     "Selected":"Y",
-    "Summurized":"N",
+    "Summurized":"SUm",
     "Used_in_filter":"Y",
     "Used_in_join":"N"
     
@@ -106,9 +106,9 @@
     "tableName": "Claim Header",
     "column_Name":"Data2",
     "Selected":"N",
-    "Summurized":"N",
+    "Summurized":"Max",
     "Used_in_filter":"N",
-    "Used_in_join":"yeah"
+    "Used_in_join":"Y"
     
     
 
@@ -117,8 +117,8 @@
     "domain": "Claims",
     "tableName": "Claim Diagnosis",
     "column_Name":"Data2",
-    "Selected":"N",
-    "Summurized":"N",
+    "Selected":"Y",
+    "Summurized":"Min",
     "Used_in_filter":"N",
     "Used_in_join":"Y"
 
@@ -128,9 +128,9 @@
     "tableName": "Claim Diagnosis",
     "column_Name":"Data2",
     "Selected":"Y",
-    "Summurized":"N",
+    "Summurized":"Min",
     "Used_in_filter":"Y",
-    "Used_in_join":"NNNNNN"
+    "Used_in_join":"N"
     
     
 
@@ -140,9 +140,9 @@
     "tableName": "Claim Diagnosis",
     "column_Name":"Data2",
     "Selected":"Y",
-    "Summurized":"N",
+    "Summurized":"Max",
     "Used_in_filter":"Y",
-    "Used_in_join":"Nahi"
+    "Used_in_join":"N"
     
     
 
