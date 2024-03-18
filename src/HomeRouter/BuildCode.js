@@ -16,6 +16,7 @@ export default function Buildingcode() {
   const [tableData, setTableData] = useState([]);
   const [updquery,setupdquery]=useState([]);
   const [updateTable, setUpdateTable] = useState(false);
+  const [sqlQuery, setSqlQuery] = useState('');
 
 
 
@@ -30,7 +31,9 @@ export default function Buildingcode() {
     setTableData(data);
     setupdquery(UpdateQuery);
   }
-
+  const handleUpdateQuery = (query) => {
+    setSqlQuery(query);
+  };
   const handleOutpClick = () => {
     setUpdateTable(true);
   };
@@ -92,7 +95,7 @@ export default function Buildingcode() {
           </div>
           <div className="output-container">
            
-            <Querybox handleOutpClick={handleOutpClick}/>
+            <Querybox handleOutpClick={handleOutpClick} sqlQuery={sqlQuery}/>
           </div>
         </div>
 
@@ -100,7 +103,7 @@ export default function Buildingcode() {
           {/* Content for the right section */}
 
           <br />
-          <BuildCodeRight tabs={tabs} tableData={tableData} updquery={updquery} updateTable={updateTable} />
+          <BuildCodeRight tabs={tabs} tableData={tableData} updquery={updquery} updateTable={updateTable} handleGenerateQuery={handleUpdateQuery} />
 
         </div>
       </div>

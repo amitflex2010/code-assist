@@ -4,13 +4,16 @@ import { FaTimes, FaCheck } from "react-icons/fa";
 const Table = ({ tableData, onDoubleClick, onDropdownChange, editedValue }) => {
   const [editingIndex, setEditingIndex] = useState(null);
   const [editingColumn, setEditingColumn] = useState(null);
-
+ 
+ 
   const handleDoubleClick = (column, value, index) => {
     setEditingIndex(index);
     setEditingColumn(column);
+    //setFinalvalue(onDoubleClick);
   };
 
   const handleDropdownChange = (value, column, index) => {
+    
     if (onDropdownChange) {
       onDropdownChange(value, column, index);
       setEditingIndex(null); // Reset editing index after dropdown change

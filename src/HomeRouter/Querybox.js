@@ -1,7 +1,7 @@
 import React from 'react';
 import copy from "../images/copy.jpg";
 import outp from "../images/output.jpg";
-export default function Querybox({ handleOutpClick }){
+export default function Querybox({ handleOutpClick,sqlQuery }){
 
      const handleImageClick = () => {
        
@@ -17,7 +17,7 @@ export default function Querybox({ handleOutpClick }){
                 <img src={outp} alt="Image 2" onClick={handleImageClick}/>
               </div>
               <div className="content">
-                <p>This is your content...</p>
+                <p>{sqlQuery}</p>
               </div>
             </div>
             <div className="output-box">
@@ -27,7 +27,7 @@ export default function Querybox({ handleOutpClick }){
                 <img src={outp} alt="Image 2"  onClick={handleImageClick}/>
               </div>
               <div className="content">
-                <p>This is your content...</p>
+                <p>{sqlQuery}</p>
               </div>
             </div>
         </>

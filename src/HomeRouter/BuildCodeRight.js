@@ -2,7 +2,7 @@ import AccordiansRight from "./AccordiansRight";
 import React from 'react';
 import {useState} from 'react'
 
-export default function BuildCodeRight({tabs,tableData,updquery,updateTable}){
+export default function BuildCodeRight({tabs,tableData,updquery,updateTable,handleGenerateQuery }){
 
   const [activeLink, setActiveLink] = useState(tabs.length > 0 ? tabs[0] : "/Claims");
   const [activeDomain, setActiveDomain] = useState(
@@ -15,6 +15,11 @@ export default function BuildCodeRight({tabs,tableData,updquery,updateTable}){
     setActiveDomain(domain);
 
   
+  };
+  const handleGenerateQueryClicksss = () => {
+    // Logic to generate SQL query based on the active domain
+    const sqlQuery = `SELECT Data1,Data2,Data3 * FROM ${activeDomain};`;
+    handleGenerateQuery(sqlQuery);
   };
 return (
 <>
@@ -44,7 +49,7 @@ return (
               {/* Dropdown 1: ClaimLine */}
               <div className="textcontainer">
                 <div className="btncontainer">
-                  <button className="right-button">Update Query</button>
+                  <button className="right-button" onClick={handleGenerateQueryClicksss}>Update Query</button>
                   <button className="outline-button">Export to excel</button>
                 </div>
 

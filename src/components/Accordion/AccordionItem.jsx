@@ -5,11 +5,13 @@ import Table from "../Table/tables";
 import jsonData from "../../assets/db.json";
 
 const AccordionItem = ({ header, data, isOpen, onClick, updateTable }) => {
+
   const contentHeight = useRef();
   const [tableRows, setTableRows] = useState([]);
   const [editedValues, setEditedValues] = useState([]);
   const [updatedRows, setUpdatedRows] = useState([]);
   const [updatedDataByDomain, setUpdatedDataByDomain] = useState([]);
+  const[allvalue,setAllvalue]=useState([]);
 
   const datasss = jsonData.UpdateQuery;
 
@@ -56,7 +58,8 @@ const AccordionItem = ({ header, data, isOpen, onClick, updateTable }) => {
     setEditedValues(updatedData.map(() => ({ selected: "", summarized: "" }))); // Initialize edited values state
   };
 
-  const handleDoubleClick = (column, index) => {
+  const handleDoubleClick = (value,column, index) => {
+    console.log(value,"handledoubleckic")
     const updatedEditedValues = [...editedValues];
     updatedEditedValues[index] = { ...updatedEditedValues[index], [column]: tableRows[index][column] };
     setEditedValues(updatedEditedValues);
@@ -66,36 +69,51 @@ const AccordionItem = ({ header, data, isOpen, onClick, updateTable }) => {
       updatedRowsList.push(index);
       setUpdatedRows(updatedRowsList);
     }
+    // const updatedTableRows = [...tableRows];
+    // updatedTableRows[index] = { ...updatedTableRows[index], [column]: value };
+
+    // setTableRows(updatedTableRows);
   };
 
   const handleDropdownChange = (value, column, index) => {
+    console.log(value,"dropdownchange");
     const updatedEditedValues = [...editedValues];
     updatedEditedValues[index] = { ...updatedEditedValues[index], [column]: value };
     setEditedValues(updatedEditedValues);
-  
+
     const updatedRowsList = [...updatedRows];
     if (!updatedRowsList.includes(index)) {
       updatedRowsList.push(index);
-      console.log(updatedRowsList,"valueeee")
+
       setUpdatedRows(updatedRowsList);
     }
-  
+
     // Update the tableRows state with the new value
     const updatedTableRows = [...tableRows];
     updatedTableRows[index] = { ...updatedTableRows[index], [column]: value };
-    console.log(updatedTableRows,"what change")
+
     setTableRows(updatedTableRows);
   };
 
+
   const getEditedData = () => {
-    const editedData = {};
+
+    const editedData = [];
+
     updatedRows.forEach(index => {
+      const domainName = data.domain;
       const tableName = data.tableName;
-      if (!editedData[tableName]) {
-        editedData[tableName] = [];
-      }
-      editedData[tableName].push(tableRows[index]);
+      const rowData = tableRows[index];
+
+      editedData.push({
+        domainName,
+        tableName,
+        rowData
+      });
     });
+
+
+    console.log(allvalue,"values dekhna ")
     return editedData;
   };
 
@@ -112,9 +130,10 @@ const AccordionItem = ({ header, data, isOpen, onClick, updateTable }) => {
           onDoubleClick={handleDoubleClick}
           onDropdownChange={handleDropdownChange}
           editedValue={editedValues}
-          updateTable={updateTable} 
+          updateTable={updateTable}
         />
       </div>
+
     </div>
   );
 };
