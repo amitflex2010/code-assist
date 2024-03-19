@@ -53,23 +53,31 @@ export const reducer = (state, action) => {
               ...state,
               Allchangeslist:action.payload
             }
-      //       case 'UPDATE_TABLE_DATA':
-      // // Update tableData based on changes in Allchangeslist
-      //       const Claimline=action.payload.Claimline;
-      // const updatedTableData = state.tableData.map(item => {
-      
-      //     if(item.domainName === action.payload.domain && action.payload.tableName === item.tableName );
-      //   {
-      //     console.log(item.columnLine,"itemclaimline")
-      //     const result=item.columnLine.filter((it)=>it.column===action.payload.rowData.columnLine  )
-      //     console.log(result,"itemvalue in reducer");
-      //    // return item;
-      //   }
-      // });
-      // return {
-      //   ...state,
-      //   tableData: updatedTableData,
-      // };
+            case 'UPDATE_TABLE_DATA':
+          // Update tableData based on changes in Allchangeslist
+            const Claimline=action.payload.Claimline;
+            
+            const updatedTableData = state.tableData.map(item => {
+       
+              console.log(item,"item ki alue ")
+           if(item.domain === action.payload.domain && action.payload.tableName === item.tableName );
+          {
+         
+          
+
+          // console.log(action.payload.rowData.claimLine,"rowdatacolumnline")
+          const result=item.columnLine.filter((it)=>it.column===action.payload.rowData.claimLine )
+           
+          console.log(result,"finalresult");
+          console.log(item.tableName,item.domain,"itemclaimline")
+           
+          }
+         
+      });
+      return {
+        ...state,
+        tableData: updatedTableData,
+      };
            
     default:
       return state;

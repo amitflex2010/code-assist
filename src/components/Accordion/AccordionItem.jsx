@@ -120,6 +120,7 @@ const AccordionItem = ({ header, isOpen, onClick, data }) => {
        const obj={domainName: data.domain,
         tableName: data.tableName,
         rowData: updatedTableRows[index]}
+        console.log(obj,"objec ki value")
         Allchangeslist.push({
           domainName: data.domain,
           tableName: data.tableName,
