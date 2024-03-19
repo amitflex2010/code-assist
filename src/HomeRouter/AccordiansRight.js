@@ -1,25 +1,37 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
-import Accordion from "../components/Accordion/Accordion";
-export default function AccordiansRight({ tableData, domain,updquery,updateTable }) {
- 
-  // const [activeSection, setActiveSection] = useState("ClaimLine");
+// import React, { useContext, useEffect, useState } from "react";
 
+import Accordion from "../components/Accordion/Accordion";
+import { useState ,useEffect,useContext} from 'react';
+import { AppContext, useAppContext } from '../Context/AppContext'; 
+
+
+
+
+export default function AccordiansRight({domain}) {
+  
+  const { tabs, tableData, updquery, updateTable, sqlQuery,dispatch, FetchData,hasUnsavedChanges } = useContext(AppContext);
   const [accordionData, setAccordionData] = useState([]);
+ 
+  
+  // Extracting tabs and activeDomain from the context
+// const[activeDomain,setActiveDomain]=useState('ClaimLine')
 
   useEffect(() => {
-    const accordiondataperdomain = tableData.filter(
+    const accordionDataPerDomain = tableData.filter(
       (item) => item.domain === domain
     );
-
-    const accordionData = accordiondataperdomain.map((item) => item);
-
-    setAccordionData(accordionData);
-  }, [tableData, domain]);
+    console.log(accordionDataPerDomain,"accordianDataperdomain")  
+    const accordionDatas = accordionDataPerDomain.map((item) => item);
+    console.log(accordionDatas,"accordianDataperdomain")  
+    setAccordionData(accordionDatas);
+  }, [tableData,domain]);
 
   return (
     <div className="accordion">
-      <Accordion accordionData={accordionData} originalData={tableData} updquery={updquery} updateTable={updateTable} />
+      <Accordion
+        accordionData={accordionData}     
+       
+      />
     </div>
   );
 }

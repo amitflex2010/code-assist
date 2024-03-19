@@ -1,14 +1,49 @@
-import { useState } from "react";
-import "./Accordion.css";
-import AccordionItem from "./AccordionItem";
+// import { useState } from "react";
+// import "./Accordion.css";
+// import AccordionItem from "./AccordionItem";
 
-const Accordion = ({ accordionData, originalData,updquery,updateTable }) => {
+// const Accordion = ({ accordionData, originalData,updquery,updateTable , setHasUnsavedChanges}) => {
+//   const [activeIndex, setActiveIndex] = useState(0);
+
+//   const handleItemClick = (index) => {
+//     setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
+//   };
+
+//   return (
+//     <div className="container">
+//       {accordionData.map((item, index) => (
+//         <AccordionItem
+//           key={index}
+//           header={item.tableName}
+//           data={item}
+//           updateTable={updateTable}
+//           isOpen={activeIndex === index}
+//           onClick={() => handleItemClick(index)}
+//           setHasUnsavedChanges={ setHasUnsavedChanges}/>
+//       ))}
+//     </div>
+//   );
+// };
+
+// export default Accordion;
+import { useContext, useState } from "react";
+import "./Accordion.css";
+import AccordionItem from "./AccordionItem"; 
+import { AppContext, useAppContext } from "../../Context/AppContext";
+
+const Accordion = ({ accordionData}) => {
+ 
+  console.log(accordionData,"Accordians data")
+  const { tabs, tableData, updquery, updateTable, sqlQuery,dispatch, FetchData,hasUnsavedChanges } = useContext(AppContext);
+ 
   const [activeIndex, setActiveIndex] = useState(0);
 
   const handleItemClick = (index) => {
     setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
+    console.log(activeIndex,"active index")
+    
   };
-
+ 
   return (
     <div className="container">
       {accordionData.map((item, index) => (
@@ -16,9 +51,10 @@ const Accordion = ({ accordionData, originalData,updquery,updateTable }) => {
           key={index}
           header={item.tableName}
           data={item}
-          updateTable={updateTable}
           isOpen={activeIndex === index}
+          hasUnsavedChanges={hasUnsavedChanges}
           onClick={() => handleItemClick(index)}
+        
         />
       ))}
     </div>

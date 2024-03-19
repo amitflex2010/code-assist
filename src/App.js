@@ -10,10 +10,14 @@ import TranslateCode from './HomeRouter/TranslateCode';
 import HelpCode from './HomeRouter/HelpCode';
 import Routeing from './HomeRouter/Routeings';
 import Buildingcode from './HomeRouter/BuildCode';
+import { AppProvider } from './Context/AppContext';
 
 
 function App() {
   return (
+    <>
+ 
+    <AppProvider>
     <div className="App">
     <header className='headingsection'>
      <Headers/>
@@ -43,6 +47,8 @@ function App() {
 
      
     </div>
+    </AppProvider>
+    </>
   );
 }
 
