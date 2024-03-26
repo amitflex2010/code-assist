@@ -7,14 +7,15 @@ import { AppContext, useAppContext } from "../../Context/AppContext";
 
 
 const AccordionItem = ({ header, isOpen, onClick, data }) => {
- 
-  const { tabs, tableData: contextTableData, updquery, updateTable, sqlQuery,dispatch, FetchData,hasUnsavedChanges,Allchangeslist } = useContext(AppContext); // Access context values
- 
+
+  const { tabs, tableData, updquery, updateTable, sqlQuery,dispatch, FetchData,hasUnsavedChanges,Allchangeslist } = useContext(AppContext); // Access context values
+
   const contentHeight = useRef();
- 
+  
+
  // console.log(tableName,columnLine,header,"value of tablename")
   const datasss = updquery;
-  
+
   const [tableRows, setTableRows] = useState([]);
   const [editedValues, setEditedValues] = useState([]);
   const [updatedRows, setUpdatedRows] = useState([]);
@@ -31,50 +32,65 @@ const AccordionItem = ({ header, isOpen, onClick, data }) => {
   }, [updatedRows, tableRows]);
 
   const updateTableRows = () => {
-    const { domain, tableName } = data;
-    const transformedTableData = contextTableData.map((rowData) => ({
-      domainName: domain,
-      tableName: tableName,
-      rowData,
-    }));
+   const { domain, tableName } = data;
+
     
-    const claimLineData = data.columnLine.map((item) => item.column);
-    const tableData = claimLineData.map((value) => {
-      return {
-        claimLine: value,
-        selected: "Y",
-        summarized: "None",
-        usedinfilter: "N",
-        usedinjoin: "N",
-      };
-    });
-    const updatedData = tableData.map((defaultItem) => {
-      const updatedItem = datasss.find(
-        (item) =>
-          item.domain === data.domain &&
-          item.tableName === data.tableName &&
-          item.column_Name === defaultItem.claimLine
-      );
-      if (updatedItem && updateTable) {
-       
-        return {
-          claimLine: updatedItem.column_Name,
-          selected: updatedItem.Selected,
-          summarized: updatedItem.Summurized,
-          usedinfilter: updatedItem.Used_in_filter,
-          usedinjoin: updatedItem.Used_in_join,
-        };
-      } else {
-        return defaultItem;
+    tableData.forEach(rowData => {
+      if (rowData.columnLine) { // Check if columnLine is defined
+        const claimLineData = rowData.columnLine.map(column => column.column);
+        const rowDataItems = claimLineData.map(claimLine => ({
+          claimLine,
+          selected: "Y",
+          summarized: "None",
+          usedinfilter: "N",
+          usedinjoin: "N"
+        }));
+  
+        rowData.rowData = rowDataItems;
+        delete rowData.columnLine; // Remove the columnLine field
       }
     });
-   setTableRows(updatedData);
-    setEditedValues(updatedData.map(() => ({ selected: "", summarized: "" }))); // Initialize edited values state
+  
+    console.log(tableData,"update kar data ko ")
+   
+
+    const updatedData = tableData.map((defaultItem) => {
+      // Find all updated items in datasss that correspond to the current defaultItem
+      const updatedItems = datasss.filter(
+          (item) =>
+              item.domain === defaultItem.domain &&
+              item.tableName === defaultItem.tableName &&
+              defaultItem.rowData.some(row => row.claimLine === item.column_Name)
+      );
+  
+      if (updatedItems.length > 0 && updateTable) {
+        
+          defaultItem.rowData.forEach(row => {
+              const matchingItem = updatedItems.find(item => item.column_Name === row.claimLine);
+              if (matchingItem) {
+                  row.selected = matchingItem.Selected;
+                  row.summarized = matchingItem.Summurized;
+                  row.usedinfilter = matchingItem.Used_in_filter;
+                  row.usedinjoin = matchingItem.Used_in_join;
+              }
+          });
+      }
+  
+      return defaultItem;
+  });
+  
+  console.log(updatedData, "updatedData value");
+  setTableRows(updatedData);
+  
+  
     
+
+   // setEditedValues(updatedData.map(() => ({ selected: "", summarized: "" }))); // Initialize edited values state
+
   };
 
   const handleDoubleClick = (value,column, index) => {
-   
+
     const updatedEditedValues = [...editedValues];
     updatedEditedValues[index] = { ...updatedEditedValues[index], [column]: tableRows[index][column] };
     setEditedValues(updatedEditedValues);
@@ -84,62 +100,35 @@ const AccordionItem = ({ header, isOpen, onClick, data }) => {
       updatedRowsList.push(index);
       setUpdatedRows(updatedRowsList);
     }
-   
+
   };
   const handleDropdownChange = (value, column, index) => {
-    const updatedTableRows = [...tableRows];
-    const oldValue = updatedTableRows[index][column]; // Get the old value
+    console.log(index,column,value,"index")
+        // dispatch({ type: 'UPDATE_TABLE_DATA', payload: obj });
+        // dispatch({ type: 'SET_UPDATED_TABLEDATA', payload: Allchangeslist });
+  //       const { domain, tableName, rowData } = data;
+  //       if (rowData[index][column] !== value) {
+  //         // Create a new object representing the changed data
+  //         const changedData = {
+  //           domain,
+  //           tableName,
+  //           rowData: rowData.map(item => ({ ...item })) // Create a copy of rowData
+  //         };
+          
+  //         // Update the value in the copied rowData
+  //         changedData.rowData[index][column] = value;
+  //         console.log(changedData,"change data")
+  //         // Get the array for the current domain from the context state
+         
+  // }
+}
   
-    updatedTableRows[index] = { ...updatedTableRows[index], [column]: value }; // Update the tableRows state with the new value
-    setTableRows(updatedTableRows);
-  
-    if (oldValue !== value) { // Check if the value has changed
-      const updatedEditedValues = [...editedValues];
-      updatedEditedValues[index] = { ...updatedEditedValues[index], [column]: value };
-      setEditedValues(updatedEditedValues);
-  
-      const updatedRowsList = [...updatedRows];
-      if (!updatedRowsList.includes(index)) {
-        updatedRowsList.push(index);
-        setUpdatedRows(updatedRowsList);
-      }
-  
-      dispatch({ type: 'SET_BUTTON_STATUS', payload: true });
-  
-      // Check if the record already exists in Allchangeslist
-      const existingRecordIndex = Allchangeslist.findIndex(item =>
-        item.domainName === data.domain && item.tableName === data.tableName && item.rowData.claimLine === updatedTableRows[index].claimLine
-      );
-  
-      if (existingRecordIndex !== -1) {
-        // Update the existing record
-        Allchangeslist[existingRecordIndex].rowData = updatedTableRows[index];
-       
-      } else {
-       // Add a new record
-       const obj={domainName: data.domain,
-        tableName: data.tableName,
-        rowData: updatedTableRows[index]}
-        console.log(obj,"objec ki value")
-        Allchangeslist.push({
-          domainName: data.domain,
-          tableName: data.tableName,
-          rowData: updatedTableRows[index]
-        });
-        
-        
-        dispatch({ type: 'SET_UPDATED_TABLEDATA', payload: Allchangeslist });
-        dispatch({ type: 'UPDATE_TABLE_DATA', payload: obj });
-        console.log(contextTableData,"v of tabledata")
-      }
-    }
-  };
 
 
   const getEditedData = () => {
 
-   
-    return Allchangeslist;
+
+   return 
   };
 
   return (
@@ -155,6 +144,7 @@ const AccordionItem = ({ header, isOpen, onClick, data }) => {
           onDoubleClick={handleDoubleClick}
           onDropdownChange={handleDropdownChange}
           editedValue={editedValues}
+          data={data}
         />
       </div>
 

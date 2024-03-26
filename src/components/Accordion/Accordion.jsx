@@ -33,14 +33,14 @@ import { AppContext, useAppContext } from "../../Context/AppContext";
 
 const Accordion = ({ accordionData}) => {
  
-  console.log(accordionData,"Accordians data")
+ 
   const { tabs, tableData, updquery, updateTable, sqlQuery,dispatch, FetchData,hasUnsavedChanges } = useContext(AppContext);
  
   const [activeIndex, setActiveIndex] = useState(0);
 
   const handleItemClick = (index) => {
     setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
-    console.log(activeIndex,"active index")
+    
     
   };
  

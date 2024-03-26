@@ -10,6 +10,7 @@
         {"column":"Data4"},
         {"column":"Data5"}      
       ]
+      
     },
     
     {
@@ -94,7 +95,7 @@
     "tableName": "Claim Header",
     "column_Name":"Data1",
     "Selected":"Y",
-    "Summurized":"SUm",
+    "Summurized":"Sum",
     "Used_in_filter":"Y",
     "Used_in_join":"N"
     

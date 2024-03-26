@@ -1,3 +1,4 @@
+
 export const initialState = {
   tabs: [],
   tableData: [],
@@ -11,6 +12,7 @@ export const initialState = {
 };
 
 export const reducer = (state, action) => {
+  
   switch (action.type) {
     case 'SET_TABS':
     
@@ -29,6 +31,7 @@ export const reducer = (state, action) => {
         updquery: action.payload,
       };
     case 'SET_UPDATE_TABLE':
+      console.log(action.payload,"payload ki value")
       return {
         ...state,
         updateTable: action.payload,
@@ -53,31 +56,49 @@ export const reducer = (state, action) => {
               ...state,
               Allchangeslist:action.payload
             }
-            case 'UPDATE_TABLE_DATA':
+            case 'UPDATE_TABLE_DATA' :
           // Update tableData based on changes in Allchangeslist
-            const Claimline=action.payload.Claimline;
+          console.log(action.payload,"action payload ka data ")
+            const Claimline=action.payload.rowData.claimLine;
+            console.log(Claimline,"value of claimline")
+            console.log(action.payload.domainName,"domain of claimline")
+            console.log(action.payload.tableName,"check karne ke lie kya aata h ")
+           // console.log(action.payload.domain,"domain of claimline")
             
             const updatedTableData = state.tableData.map(item => {
-       
-              console.log(item,"item ki alue ")
-           if(item.domain === action.payload.domain && action.payload.tableName === item.tableName );
-          {
-         
-          
-
-          // console.log(action.payload.rowData.claimLine,"rowdatacolumnline")
-          const result=item.columnLine.filter((it)=>it.column===action.payload.rowData.claimLine )
+              console.log(item,"itemsss")
+             
+              let result;
+           if(item.domain === action.payload.domainName && action.payload.tableName === item.tableName )
+            {
            
-          console.log(result,"finalresult");
-          console.log(item.tableName,item.domain,"itemclaimline")
+
+             
+           result=item.columnLine.findIndex(it=>it.column===action.payload.rowData.claimLine )
+           
+          console.log(result,"resultss");
+          const mockUpdatedState=[...state.tableData];
+          // mockUpdatedState.item.columLine[result]=action.payload.rowData
+          console.log(mockUpdatedState,"mockedTable");
+          item.columnLine[result]=action.payload.rowData;
+          return item;
            
           }
+          
+          return item;
+           
+       
+
          
       });
+      console.log(updatedTableData,"updated items");
       return {
         ...state,
         tableData: updatedTableData,
       };
+      case 'SET_UPDATED_TABLEDATA':
+       
+        
            
     default:
       return state;

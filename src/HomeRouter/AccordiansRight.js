@@ -11,6 +11,7 @@ export default function AccordiansRight({domain}) {
   
   const { tabs, tableData, updquery, updateTable, sqlQuery,dispatch, FetchData,hasUnsavedChanges } = useContext(AppContext);
   const [accordionData, setAccordionData] = useState([]);
+  
  
   
   // Extracting tabs and activeDomain from the context
@@ -19,10 +20,9 @@ export default function AccordiansRight({domain}) {
   useEffect(() => {
     const accordionDataPerDomain = tableData.filter(
       (item) => item.domain === domain
-    );
-    console.log(accordionDataPerDomain,"accordianDataperdomain")  
+    ); 
     const accordionDatas = accordionDataPerDomain.map((item) => item);
-    console.log(accordionDatas,"accordianDataperdomain")  
+    
     setAccordionData(accordionDatas);
   }, [tableData,domain]);
 

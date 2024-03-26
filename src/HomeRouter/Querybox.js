@@ -10,7 +10,8 @@ export default function Querybox({ handleOutpClick }){
      const handleImageClick = () => {
        
        console.log("Image is clicked");
-     handleOutpClick();
+      handleOutpClick();
+      
   };
 
     return (
