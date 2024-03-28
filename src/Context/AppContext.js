@@ -48,6 +48,7 @@ return(
   hasUnsavedChanges:state.hasUnsavedChanges,
   Dropdownchangesstatus:state.Dropdownchangesstatus,
   Allchangeslist:state.Allchangeslist,
+  Updated_Table:state.Updated_Table,
 
   FetchData}}>
     {children}

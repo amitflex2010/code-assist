@@ -26,10 +26,7 @@ const AccordionItem = ({ header, isOpen, onClick, data }) => {
     updateTableRows();
   }, [ data,datasss, updateTable]);
 
-  useEffect(() => {
-    // Log edited data whenever updatedRows changes
-    console.log(getEditedData(),"JSON LIST DATA");
-  }, [updatedRows, tableRows]);
+
 
   const updateTableRows = () => {
    const { domain, tableName } = data;
@@ -51,7 +48,7 @@ const AccordionItem = ({ header, isOpen, onClick, data }) => {
       }
     });
   
-    console.log(tableData,"update kar data ko ")
+  
    
 
     const updatedData = tableData.map((defaultItem) => {
@@ -79,7 +76,7 @@ const AccordionItem = ({ header, isOpen, onClick, data }) => {
       return defaultItem;
   });
   
-  console.log(updatedData, "updatedData value");
+  
   setTableRows(updatedData);
   
   
@@ -103,34 +100,12 @@ const AccordionItem = ({ header, isOpen, onClick, data }) => {
 
   };
   const handleDropdownChange = (value, column, index) => {
-    console.log(index,column,value,"index")
-        // dispatch({ type: 'UPDATE_TABLE_DATA', payload: obj });
-        // dispatch({ type: 'SET_UPDATED_TABLEDATA', payload: Allchangeslist });
-  //       const { domain, tableName, rowData } = data;
-  //       if (rowData[index][column] !== value) {
-  //         // Create a new object representing the changed data
-  //         const changedData = {
-  //           domain,
-  //           tableName,
-  //           rowData: rowData.map(item => ({ ...item })) // Create a copy of rowData
-  //         };
-          
-  //         // Update the value in the copied rowData
-  //         changedData.rowData[index][column] = value;
-  //         console.log(changedData,"change data")
-  //         // Get the array for the current domain from the context state
-         
-  // }
+   
 }
   
 
 
-  const getEditedData = () => {
-
-
-   return 
-  };
-
+  
   return (
     <div className="wrapper">
       <button className={`question-container ${isOpen ? "active" : ""}`} onClick={onClick}>

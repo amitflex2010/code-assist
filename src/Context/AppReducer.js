@@ -9,6 +9,7 @@ export const initialState = {
   Dropdownchangesstatus:false,
   Allchangeslist:[],
   updTabledata:[],
+  Updated_Table:[],
 };
 
 export const reducer = (state, action) => {
@@ -56,47 +57,55 @@ export const reducer = (state, action) => {
               ...state,
               Allchangeslist:action.payload
             }
-            case 'UPDATE_TABLE_DATA' :
-          // Update tableData based on changes in Allchangeslist
-          console.log(action.payload,"action payload ka data ")
-            const Claimline=action.payload.rowData.claimLine;
-            console.log(Claimline,"value of claimline")
-            console.log(action.payload.domainName,"domain of claimline")
-            console.log(action.payload.tableName,"check karne ke lie kya aata h ")
-           // console.log(action.payload.domain,"domain of claimline")
+      //       case 'UPDATE_TABLE_DATA' :
+      //     // Update tableData based on changes in Allchangeslist
+      //     console.log(action.payload,"action payload ka data ")
+      //       const Claimline=action.payload.rowData.claimLine;
+      //       console.log(Claimline,"value of claimline")
+      //       console.log(action.payload.domainName,"domain of claimline")
+      //       console.log(action.payload.tableName,"check karne ke lie kya aata h ")
+      //      // console.log(action.payload.domain,"domain of claimline")
             
-            const updatedTableData = state.tableData.map(item => {
-              console.log(item,"itemsss")
+      //       const updatedTableData = state.tableData.map(item => {
+      //         console.log(item,"itemsss")
              
-              let result;
-           if(item.domain === action.payload.domainName && action.payload.tableName === item.tableName )
-            {
+      //         let result;
+      //      if(item.domain === action.payload.domainName && action.payload.tableName === item.tableName )
+      //       {
            
 
              
-           result=item.columnLine.findIndex(it=>it.column===action.payload.rowData.claimLine )
+      //      result=item.columnLine.findIndex(it=>it.column===action.payload.rowData.claimLine )
            
-          console.log(result,"resultss");
-          const mockUpdatedState=[...state.tableData];
-          // mockUpdatedState.item.columLine[result]=action.payload.rowData
-          console.log(mockUpdatedState,"mockedTable");
-          item.columnLine[result]=action.payload.rowData;
-          return item;
+      //     console.log(result,"resultss");
+      //     const mockUpdatedState=[...state.tableData];
+      //     // mockUpdatedState.item.columLine[result]=action.payload.rowData
+      //     console.log(mockUpdatedState,"mockedTable");
+      //     item.columnLine[result]=action.payload.rowData;
+      //     return item;
            
-          }
+      //     }
           
-          return item;
+          
+      //     return item;
            
        
 
          
-      });
-      console.log(updatedTableData,"updated items");
-      return {
-        ...state,
-        tableData: updatedTableData,
-      };
-      case 'SET_UPDATED_TABLEDATA':
+      // });
+      // console.log(updatedTableData,"updated items");
+      // return {
+      //   ...state,
+      //   tableData: updatedTableData,
+      // };
+      case 'UPDATED_TABLE_VALUE':
+        return {
+          ...state,
+          Updated_Table:action.payload
+        }
+            
+      
+     
        
         
            

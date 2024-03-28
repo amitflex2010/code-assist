@@ -7,7 +7,7 @@ const Table = ({ tableValues, onDoubleClick, onDropdownChange,data }) => {
   const [editingIndex, setEditingIndex] = useState(null);
   const [editingColumn, setEditingColumn] = useState(null);
   const[dropdwnvalue,setdropDwnvalue]=useState(null);
-  const { tabs, tableData, updquery, updateTable, sqlQuery,dispatch, FetchData,hasUnsavedChanges } = useContext(AppContext);
+  const { tabs, tableData, updquery, updateTable, sqlQuery,dispatch, FetchData,hasUnsavedChanges,Updated_Table } = useContext(AppContext);
  console.log(tableValues,"table valiue")
   const handleDoubleClick = (column, value, index) => {
    
@@ -33,7 +33,7 @@ const Table = ({ tableValues, onDoubleClick, onDropdownChange,data }) => {
     }).filter(index => index !== null);
 
 
-console.log(filteredindexes,"filter data ka result");
+
 
   const handleDropdownChange = (value, column, index) => {
     
@@ -47,32 +47,61 @@ console.log(filteredindexes,"filter data ka result");
   const handleSelectChange = (e, index) => {
    
     const { value } = e.target;
-    console.log(value,"value from handleselectchange");
-
+    
+    const originalTableValues = JSON.parse(JSON.stringify(tableValues));
     const updatedTableValues = [...tableValues];
    
     updatedTableValues[filteredindexes].rowData[editingIndex][editingColumn] = value;
-    const modifiedValues = findModifiedValues(tableValues, updatedTableValues);
-  console.log(modifiedValues,"modified values"); 
+    handleDropdownChange(value, editingColumn, filteredindexes[0]);
+    const resultmodified=findModifiedObjects(originalTableValues,updatedTableValues)
+    const modifiedValues = findModifiedObjects(originalTableValues[filteredindexes].rowData, updatedTableValues[filteredindexes].rowData,originalTableValues[filteredindexes].tableName,originalTableValues[filteredindexes].domain);
     
-    handleDropdownChange(value, editingColumn, filteredindexes[0]); // Notify parent about the change
+  
+  Updated_Table.push(modifiedValues);
+  const flattenedArray = Updated_Table.flat();
+   
+
+// Remove duplicates
+const uniqueArray = flattenedArray.filter((obj, index, self) =>
+    index === self.findIndex((o) =>
+        JSON.stringify(o) === JSON.stringify(obj)
+    )
+);
+console.log(uniqueArray,"unique array ")
+ 
+    
+     // Notify parent about the change
   };
 
-  function findModifiedValues(originalArray, modifiedArray) {
-    const modifiedValues = [];
+   // Function to compare two objects for equality
+  function objectsAreEqual(obj1, obj2) {
+    return JSON.stringify(obj1) === JSON.stringify(obj2);
+  }
   
-    // Iterate over the modified array
+  function findModifiedObjects(originalArray, modifiedArray,Table_Name,Domain_Name) {
+    const modifiedObjects = [];
+    const modifiedheader=[];
+    const TabName="tableName"
+    const DomainValue="domain"
+  
     modifiedArray.forEach(modifiedObj => {
-      // Find the corresponding object in the original array
-      const originalObj = originalArray.find(obj => obj.id === modifiedObj.id);
-  
-      // If the corresponding object is found and it's different from the modified one, add it to the modifiedValues array
-      if (originalObj && !objectsAreEqual(originalObj, modifiedObj)) {
-        modifiedValues.push(modifiedObj);
+      const originalObj = originalArray.find(obj => obj.claimLine === modifiedObj.claimLine);
+      if (originalObj && !objectsAreEqual(originalObj, modifiedObj) && Table_Name && Domain_Name) {
+        modifiedObj[TabName]=Table_Name;
+        modifiedObj[DomainValue]=Domain_Name;
+        modifiedObjects.push(modifiedObj);
       }
     });
+    // modifiedArray.forEach(mdf => {
+    //   const originalObj = originalArray.find(obj => obj.tableName === mdf.tableName);
+    //   console.log(originalObj,"Kya h value");
+    //   if (originalObj && !objectsAreEqual(originalObj, mdf)) {
+    //     console.log("shi h ")
+    //     modifiedheader.push(mdf);
+    //   }
+    // });
   
-    return modifiedValues;
+    return modifiedObjects;
   }
   
   // Function to compare two objects for equality
@@ -80,6 +109,7 @@ console.log(filteredindexes,"filter data ka result");
     return JSON.stringify(obj1) === JSON.stringify(obj2);
   }
   
+ 
   
   
 
