@@ -3,39 +3,52 @@ import copy from "../images/copy.jpg";
 import outp from "../images/output.jpg";
 import { AppContext } from '../Context/AppContext';
 import DropDownBox from '../components/DropDownBox';
-export default function Querybox({ handleOutpClick }){
+import { MdOutlineOutput } from "react-icons/md";
+import { FaRegCopy } from "react-icons/fa6";
+import { useState } from 'react';
+export default function Querybox({ handleOutpClick,sqldata }){
 
-  const { tabs, tableData, updquery, updateTable, sqlQuery,dispatch, FetchData,hasUnsavedChanges,Dropdownchangesstatus} = useContext(AppContext);
-  
+ const [dtquery,setDtquery]=useState(`SELECT CLCL_ID, SBSB_CK,
+  SUM(CLCL_ID) AS Sumdata,
+  MAX(SBSB_CK) AS Maxdata
+  FROM claimheader
+  WHERE SBSB_CK > 100`);
+  const[outputstatus,setOutputstatus]=useState(false);
+  const { tabs, tableData, updquery, updateTable,dispatch, FetchData,hasUnsavedChanges,Dropdownchangesstatus} = useContext(AppContext);
+    console.log(sqldata,"sqldatassssss")
      const handleImageClick = () => {
-       
-       console.log("Image is clicked");
+       setOutputstatus(true)
       handleOutpClick();
       
   };
+ 
+  const iconstyle={
+    height: "30px",
+    width: "30px"
+  }
 
     return (
         <>
               <div className="output-box">
               <div className="image-container">
-                <img src={copy} alt="Image 1" />
+              <FaRegCopy style={iconstyle} title='Copy'/>
 
-                <img src={outp} alt="Image 2" onClick={handleImageClick}/>
+                <MdOutlineOutput style={iconstyle} title='output' onClick={handleImageClick}/>
               </div>
               <div className="content">
-               {hasUnsavedChanges  &&Dropdownchangesstatus&&( 
-                <p>{sqlQuery}</p>)}
+              {sqldata && outputstatus&&( 
+                <p>{dtquery}</p>)}
               </div>
             </div>
             <div className="output-box">
               <div className="image-container">
-                <img src={copy} alt="Image 1" />
+              <FaRegCopy style={iconstyle} title='Copy'/>
 
-                <img src={outp} alt="Image 2"  onClick={handleImageClick}/>
+              <MdOutlineOutput style={iconstyle} title='output' onClick={handleImageClick}/>
               </div>
               <div className="content">
-              {hasUnsavedChanges  &&Dropdownchangesstatus&&( 
-                <p>{sqlQuery}</p>)}
+              {sqldata && outputstatus&&( 
+                <p>{dtquery}</p>)}
               </div>
             </div>
         </>

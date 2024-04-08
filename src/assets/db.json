@@ -91,9 +91,9 @@
     
   ],
   "UpdateQuery":[{
-    "domain": "Claims",
-    "tableName": "Claim Header",
-    "column_Name":"Data1",
+    "domain": "claim",
+    "tableName": "claimheader",
+    "fieldName":"CLCL_ID",
     "Selected":"Y",
     "Summurized":"Sum",
     "Used_in_filter":"Y",
@@ -103,10 +103,10 @@
 
   },
   {
-    "domain": "Claims",
-    "tableName": "Claim Header",
-    "column_Name":"Data2",
-    "Selected":"N",
+    "domain": "claim",
+    "tableName": "claimheader",
+    "fieldName":"SBSB_CK",
+    "Selected":"Y",
     "Summurized":"Max",
     "Used_in_filter":"N",
     "Used_in_join":"Y"
@@ -117,7 +117,7 @@
   {
     "domain": "Claims",
     "tableName": "Claim Diagnosis",
-    "column_Name":"Data2",
+    "fieldName":"CLCL_ID",
     "Selected":"Y",
     "Summurized":"Min",
     "Used_in_filter":"N",
@@ -127,7 +127,7 @@
   {
     "domain": "Eligibility",
     "tableName": "Claim Diagnosis",
-    "column_Name":"Data2",
+    "fieldName":"MEME_CK",
     "Selected":"Y",
     "Summurized":"Min",
     "Used_in_filter":"Y",
@@ -139,7 +139,7 @@
   {
     "domain": "Providers",
     "tableName": "Claim Diagnosis",
-    "column_Name":"Data2",
+    "fieldName":"GRGR_CK",
     "Selected":"Y",
     "Summurized":"Max",
     "Used_in_filter":"Y",

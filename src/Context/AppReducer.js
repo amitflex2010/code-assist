@@ -1,4 +1,3 @@
-
 export const initialState = {
   tabs: [],
   tableData: [],
@@ -32,7 +31,7 @@ export const reducer = (state, action) => {
         updquery: action.payload,
       };
     case 'SET_UPDATE_TABLE':
-      console.log(action.payload,"payload ki value")
+   
       return {
         ...state,
         updateTable: action.payload,
@@ -57,47 +56,6 @@ export const reducer = (state, action) => {
               ...state,
               Allchangeslist:action.payload
             }
-      //       case 'UPDATE_TABLE_DATA' :
-      //     // Update tableData based on changes in Allchangeslist
-      //     console.log(action.payload,"action payload ka data ")
-      //       const Claimline=action.payload.rowData.claimLine;
-      //       console.log(Claimline,"value of claimline")
-      //       console.log(action.payload.domainName,"domain of claimline")
-      //       console.log(action.payload.tableName,"check karne ke lie kya aata h ")
-      //      // console.log(action.payload.domain,"domain of claimline")
-            
-      //       const updatedTableData = state.tableData.map(item => {
-      //         console.log(item,"itemsss")
-             
-      //         let result;
-      //      if(item.domain === action.payload.domainName && action.payload.tableName === item.tableName )
-      //       {
-           
-
-             
-      //      result=item.columnLine.findIndex(it=>it.column===action.payload.rowData.claimLine )
-           
-      //     console.log(result,"resultss");
-      //     const mockUpdatedState=[...state.tableData];
-      //     // mockUpdatedState.item.columLine[result]=action.payload.rowData
-      //     console.log(mockUpdatedState,"mockedTable");
-      //     item.columnLine[result]=action.payload.rowData;
-      //     return item;
-           
-      //     }
-          
-          
-      //     return item;
-           
-       
-
-         
-      // });
-      // console.log(updatedTableData,"updated items");
-      // return {
-      //   ...state,
-      //   tableData: updatedTableData,
-      // };
       case 'UPDATED_TABLE_VALUE':
         return {
           ...state,

@@ -7,12 +7,13 @@ import { AppContext, useAppContext } from "../../Context/AppContext";
 
 
 const AccordionItem = ({ header, isOpen, onClick, data }) => {
+  console.log(isOpen,onClick,"open")
 
   const { tabs, tableData, updquery, updateTable, sqlQuery,dispatch, FetchData,hasUnsavedChanges,Allchangeslist } = useContext(AppContext); // Access context values
 
   const contentHeight = useRef();
   
-
+  console.log(updquery,"update query result")
  // console.log(tableName,columnLine,header,"value of tablename")
   const datasss = updquery;
 
@@ -37,7 +38,7 @@ const AccordionItem = ({ header, isOpen, onClick, data }) => {
       {
         const fieldNames=rowData.field_names.map(fieldName=>({
          fieldName,
-         selected: "Y",
+         selected: "N",
          summarized: "None",
          usedinfilter: "N",
          usedinjoin: "N" 
@@ -48,22 +49,23 @@ const AccordionItem = ({ header, isOpen, onClick, data }) => {
     })
    
   
-  
+  console.log(tableData,datasss,"tabledata")
    
 
     const updatedData = tableData.map((defaultItem) => {
       // Find all updated items in datasss that correspond to the current defaultItem
       const updatedItems = datasss.filter(
           (item) =>
-              item.domain === defaultItem.domain &&
-              item.table_name === defaultItem.tableName &&
-              defaultItem.rowData.some(row => row.claimLine === item.column_Name)
+              item.domain === defaultItem.domain_name &&
+              item.tableName === defaultItem.table_name &&
+              defaultItem.rowData.some(row => row.fieldName === item.fieldName)
       );
+      console.log(updatedItems,updateTable,"updateditems")
   
       if (updatedItems.length > 0 && updateTable) {
         
           defaultItem.rowData.forEach(row => {
-              const matchingItem = updatedItems.find(item => item.column_Name === row.claimLine);
+              const matchingItem = updatedItems.find(item => item.fieldName === row.fieldName);
               if (matchingItem) {
                   row.selected = matchingItem.Selected;
                   row.summarized = matchingItem.Summurized;
