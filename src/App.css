@@ -86,7 +86,7 @@
   }
   .pageContainer {
     display: flex;
-    height: 900px;
+   height:auto;
     margin-top: 22px;
   }
 
@@ -208,7 +208,7 @@
   }
 
   .li-style{
-    width: 17%;
+    width: 20%;
     cursor: pointer;
   }
 
@@ -257,7 +257,7 @@
     flex-direction: column;
     width: 100%;
     border: 1px solid #bfb9b9;
-    height: 700px;
+    height: auto;
   }
 
   .options-container {
