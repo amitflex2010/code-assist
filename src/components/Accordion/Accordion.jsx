@@ -21,7 +21,7 @@ const Accordion = ({ accordionData}) => {
       {accordionData.map((item, index) => (
         <AccordionItem
           key={index}
-          header={item.tableName}
+          header={item.table_name.toUpperCase()}
           data={item}
           isOpen={activeIndex === index}
           hasUnsavedChanges={hasUnsavedChanges}

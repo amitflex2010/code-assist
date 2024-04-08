@@ -24,29 +24,29 @@ const AccordionItem = ({ header, isOpen, onClick, data }) => {
 
   useEffect(() => {
     updateTableRows();
-  }, [ data,datasss, updateTable]);
+  }, [ data, updateTable]);
 
 
 
   const updateTableRows = () => {
    const { domain, tableName } = data;
 
-    
-    tableData.forEach(rowData => {
-      if (rowData.columnLine) { // Check if columnLine is defined
-        const claimLineData = rowData.columnLine.map(column => column.column);
-        const rowDataItems = claimLineData.map(claimLine => ({
-          claimLine,
-          selected: "Y",
-          summarized: "None",
-          usedinfilter: "N",
-          usedinjoin: "N"
-        }));
-  
-        rowData.rowData = rowDataItems;
-        delete rowData.columnLine; // Remove the columnLine field
+   
+    tableData.forEach(rowData=>{
+      if(rowData.field_names)
+      {
+        const fieldNames=rowData.field_names.map(fieldName=>({
+         fieldName,
+         selected: "Y",
+         summarized: "None",
+         usedinfilter: "N",
+         usedinjoin: "N" 
+      }));
+      rowData.rowData = fieldNames;
+      delete rowData.field_names; // Remove the field_names property
       }
-    });
+    })
+   
   
   
    
@@ -56,7 +56,7 @@ const AccordionItem = ({ header, isOpen, onClick, data }) => {
       const updatedItems = datasss.filter(
           (item) =>
               item.domain === defaultItem.domain &&
-              item.tableName === defaultItem.tableName &&
+              item.table_name === defaultItem.tableName &&
               defaultItem.rowData.some(row => row.claimLine === item.column_Name)
       );
   
@@ -89,7 +89,7 @@ const AccordionItem = ({ header, isOpen, onClick, data }) => {
   const handleDoubleClick = (value,column, index) => {
 
     const updatedEditedValues = [...editedValues];
-    updatedEditedValues[index] = { ...updatedEditedValues[index], [column]: tableRows[index][column] };
+    updatedEditedValues[index] = { ...updatedEditedValues[index], [column]: tableData[index][column] };
     setEditedValues(updatedEditedValues);
 
     const updatedRowsList = [...updatedRows];

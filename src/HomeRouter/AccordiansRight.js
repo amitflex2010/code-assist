@@ -9,7 +9,9 @@ import { AppContext, useAppContext } from '../Context/AppContext';
 
 export default function AccordiansRight({domain}) {
   
+  
   const { tabs, tableData, updquery, updateTable, sqlQuery,dispatch, FetchData,hasUnsavedChanges } = useContext(AppContext);
+
   const [accordionData, setAccordionData] = useState([]);
   
  
@@ -19,9 +21,11 @@ export default function AccordiansRight({domain}) {
 
   useEffect(() => {
     const accordionDataPerDomain = tableData.filter(
-      (item) => item.domain === domain
+      (item) => item.domain_name=== domain
     ); 
+   
     const accordionDatas = accordionDataPerDomain.map((item) => item);
+   
     
     setAccordionData(accordionDatas);
   }, [tableData,domain]);
