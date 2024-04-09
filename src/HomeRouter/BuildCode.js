@@ -20,7 +20,7 @@ const[querydata,setQuerydata]=useState(false);
   const { tabs, tableData, updquery, updateTable, sqlQuery,dispatch, FetchData } = useContext(AppContext);
 
   const buildquerydata=()=>{
-    if(updateTable)
+ 
    setQuerydata(true);
   }
   

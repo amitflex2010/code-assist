@@ -9,6 +9,7 @@ export default function Querybox({ handleOutpClick, sqldata }) {
   MAX(SBSB_CK) AS Maxdata
   FROM claimheader
   WHERE SBSB_CK > 100`);
+  
   const [outputstatus, setOutputstatus] = useState(false);
   const {
     tabs,
@@ -22,18 +23,45 @@ export default function Querybox({ handleOutpClick, sqldata }) {
   } = useContext(AppContext);
 
   const handleImageClick = () => {
+    if(sqldata){
     setOutputstatus(true);
     handleOutpClick();
+    }
   };
 
   const iconstyle = {
-    height: "30px",
-    width: "30px",
+    height: "20px",
+    width: "20px",
+    cursor:"pointer"
+    
+  };
+  const disabledIconStyle = {
+    ...iconstyle,
+    color: "grey", 
+    cursor: !sqldata ? "not-allowed" : "pointer" ,
   };
 
   return (
     <>
       <div className="output-box">
+      <div className="image-container">
+          <FaCopy
+            style={sqldata ? iconstyle : disabledIconStyle}
+            title="Copy"
+          />
+
+          <MdOutlineOutput
+            style={sqldata ? iconstyle : disabledIconStyle}
+            title="export"
+            onClick={handleImageClick}
+           
+          />
+        </div>
+        <div className="content">
+          {sqldata && <p>{dtquery}</p>}
+        </div>
+      </div>
+      {/* <div className="output-box">
         <div className="image-container">
           <FaCopy style={iconstyle} title="Copy" />
 
@@ -46,21 +74,7 @@ export default function Querybox({ handleOutpClick, sqldata }) {
         <div className="content">
           {sqldata && outputstatus && <p>{dtquery}</p>}
         </div>
-      </div>
-      <div className="output-box">
-        <div className="image-container">
-          <FaCopy style={iconstyle} title="Copy" />
-
-          <MdOutlineOutput
-            style={iconstyle}
-            title="output"
-            onClick={handleImageClick}
-          />
-        </div>
-        <div className="content">
-          {sqldata && outputstatus && <p>{dtquery}</p>}
-        </div>
-      </div>
+      </div> */}
     </>
   );
 }

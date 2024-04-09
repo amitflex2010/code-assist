@@ -7,13 +7,13 @@ import { AppContext, useAppContext } from "../../Context/AppContext";
 
 
 const AccordionItem = ({ header, isOpen, onClick, data }) => {
-  console.log(isOpen,onClick,"open")
+ 
 
   const { tabs, tableData, updquery, updateTable, sqlQuery,dispatch, FetchData,hasUnsavedChanges,Allchangeslist } = useContext(AppContext); // Access context values
 
   const contentHeight = useRef();
   
-  console.log(updquery,"update query result")
+ 
  // console.log(tableName,columnLine,header,"value of tablename")
   const datasss = updquery;
 
@@ -49,7 +49,7 @@ const AccordionItem = ({ header, isOpen, onClick, data }) => {
     })
    
   
-  console.log(tableData,datasss,"tabledata")
+  
    
 
     const updatedData = tableData.map((defaultItem) => {
@@ -60,8 +60,7 @@ const AccordionItem = ({ header, isOpen, onClick, data }) => {
               item.tableName === defaultItem.table_name &&
               defaultItem.rowData.some(row => row.fieldName === item.fieldName)
       );
-      console.log(updatedItems,updateTable,"updateditems")
-  
+      
       if (updatedItems.length > 0 && updateTable) {
         
           defaultItem.rowData.forEach(row => {

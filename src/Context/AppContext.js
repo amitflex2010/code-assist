@@ -36,35 +36,6 @@ export const AppProvider = ({ children }) => {
   
   const[alldata,setAlldata]=useState([])
   const [state, dispatch] = useReducer(reducer, initialState);
-  
-  //  function FetchData() {
-   
-   
-  //   axios.get("https://codeassistapi.azurewebsites.net/api/systems")
-  //         .then(response=>{
-  //          setAlldata(response.data)
-  //            if (Array.isArray(alldata)){
-  //           const uniqueDomains = [...new Set(alldata?.map((item) =>{
-  //             console.log(item.data.systems.domain_name,"domains")
-  //            return item.data.systems.domain_name}))];
-  //           console.log(uniqueDomains,"unique domain");
-  //         dispatch({ type: 'SET_TABS', payload: uniqueDomains });
-  //          dispatch({ type: 'SET_TABLE_DATA', payload: alldata });
-  //         dispatch({ type: 'SET_UPD_QUERY', payload: jsonData.UpdateQuery });
-  //           console.log(response,"response ka data ")
-  //            }
-  //            else {
-  //             alert("himanshu")
-  //             console.error('Data fetched is not an array:', alldata);
-  //           }
-        
-  //         })
-
-    
-   
-   
-    
-  // }
   function FetchData() {
     axios.get("https://codeassistapi.azurewebsites.net/api/systems")
       .then(response => {
@@ -113,5 +84,3 @@ return(
   </AppContext.Provider>
 )};
 
-// Custom hook to use AppContext
-// export const useAppContext = () => useContext(AppContext);

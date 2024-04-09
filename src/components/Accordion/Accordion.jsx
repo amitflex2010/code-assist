@@ -8,12 +8,9 @@ const Accordion = ({ accordionData}) => {
  
   const { tabs, tableData, updquery, updateTable, sqlQuery,dispatch, FetchData,hasUnsavedChanges } = useContext(AppContext);
  
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState();
 
-  useEffect(()=>{
-    setActiveIndex(0);
-  },[])
-
+  
   const handleItemClick = (index) => {
     setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
     
