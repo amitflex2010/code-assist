@@ -9,6 +9,7 @@ import jsonData from '../assets/db.json';
 import Querybox from "./Querybox";
 import { AppContext } from '../Context/AppContext';
 import { useRef } from "react";
+import { FaLessThan,FaGreaterThan } from "react-icons/fa";
 
 export default function Buildingcode() {
   const { FetchData, dispatch } = useContext(AppContext);
@@ -40,10 +41,10 @@ export default function Buildingcode() {
     if(flag)
     {  
     setIsOpen(true);
-        setTextareaSize(isOpen ? "100%" : "100%");
+    setTextareaSize(isOpen ? "100%" : "100%");
     setTextareaheight(isOpen?"100%":"100%");
     setQuerydata(true);
-    console.log(flag)
+  
     }
   };
 
@@ -75,7 +76,7 @@ export default function Buildingcode() {
           <div className="textRow">
             <div className="descriptionBox" >
               <textarea
-              style={{ width: textareaSize,height:textareaheight }}
+              style={{ width: textareaSize }}
                 id="description"
                 rows="10"
                 cols="50"
@@ -105,7 +106,7 @@ export default function Buildingcode() {
             </div>
           </div>
           <div className="buttonRow">
-            <button className="Buildbtn" onClick={buildquerydata}>Build Query</button>
+            <button className={flag?"Buildbtn":"Buildbtndisable"} onClick={buildquerydata} disabled={!flag}>Build Query</button>
           </div>
           {querydata && flag && (
             <div className="Querycls">
@@ -118,7 +119,10 @@ export default function Buildingcode() {
         </div>
         <div>
           <div className="arrow" onClick={toggleCollapse}>
-            {isOpen ? "▼" : "►"}
+            {isOpen ? (
+              <FaLessThan />
+              
+            ):(<FaGreaterThan />)}
           </div>
           
           {isOpen && (
