@@ -5,8 +5,9 @@ import { useEffect } from "react";
 //import Multiselect from "multiselect-react-dropdown";
 
 function DropDownBox(props) {
-  const { label, cssName, dropDownBoxData, onSelect, type, selectedValue } =
+  const { label, cssName, dropDownBoxData, onSelect, type } =
     props;
+  
   const [selectedOption, setSelectedOption] = useState({
     label: "",
     value: "",
@@ -26,14 +27,14 @@ function DropDownBox(props) {
     //onSelect(selectedOption.label);
   };
 
-  useEffect(() => {
-    if (type === "notes") {
-      setSelectedOption({
-        label: selectedValue.Concept_Review_Status,
-        value: selectedValue.Concept_Review_Status,
-      });
-    }
-  }, [selectedValue]);
+  // useEffect(() => {
+  //   if (type === "notes") {
+  //     setSelectedOption({
+  //       label: selectedValue.Concept_Review_Status,
+  //       value: selectedValue.Concept_Review_Status,
+  //     });
+  //   }
+  // }, [selectedValue]);
 
   const renderComponent = (type) => {
     switch (type) {
@@ -41,7 +42,7 @@ function DropDownBox(props) {
         return (
           <label>
             {label}
-            <select className="select-options" onChange={handleSelectionChange}>
+            <select className="select-options" onChange={handleChange}>
               <option value="">Select</option>
               {dropDownBoxData?.map((item, index) => (
                 <option key={`select${index}`} value={item[index]}>

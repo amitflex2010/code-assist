@@ -1,51 +1,70 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import newcloud from "../images/clouds.png";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useState } from "react";
 import { status } from "../utils/data";
 
 import DropDownBox from "../components/DropDownBox/index";
 import BuildCodeRight from "./BuildCodeRight";
 import jsonData from '../assets/db.json';
 import Querybox from "./Querybox";
-import { AppContext, AppProvider, useAppContext } from '../Context/AppContext'; 
-import { reducer } from '../Context/AppReducer'; 
+import { AppContext } from '../Context/AppContext';
 import { useRef } from "react";
 
 export default function Buildingcode() {
-  // const [tabs, setTabs] = useState([]);
-  const { document, UpdateQuery } = jsonData;
-const[querydata,setQuerydata]=useState(false);
-
-  const { tabs, tableData, updquery, updateTable, sqlQuery,dispatch, FetchData } = useContext(AppContext);
-
-  const buildquerydata=()=>{
- 
-   setQuerydata(true);
-  }
-  
-  useEffect(() => {
-    FetchData();
-   
-  }, []);
+  const { FetchData, dispatch } = useContext(AppContext);
+  const [querydata, setQuerydata] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [textareaSize, setTextareaSize] = useState("100%"); // Initial size
+  const[textareaheight,setTextareaheight]=useState("330px");
+  const[flag,setFlag]=useState(false);
 
   const fileInputRef = useRef(null);
-  
+
+  const toggleCollapse = () => {
+    setIsOpen(!isOpen);
+    // Adjust textarea size based on isOpen state
+    setTextareaSize(isOpen ? "1050px" : "100%");
+    setTextareaheight(isOpen?"330px":"100%");
+  };
+
   const handleOutpClick = () => {
     dispatch({ type: 'SET_UPDATE_TABLE', payload: true });
   };
-
+  
   const handleFileUpload = (event) => {
     const selectedFile = event.target.files[0];
     // Handle the selected file, e.g., send it to a server or process it.
-    
   };
+
+  const buildquerydata = () => {
+    if(flag)
+    {  
+    setIsOpen(true);
+        setTextareaSize(isOpen ? "100%" : "100%");
+    setTextareaheight(isOpen?"100%":"100%");
+    setQuerydata(true);
+    console.log(flag)
+    }
+  };
+
+  useEffect(() => {
+    FetchData();
+  }, []);
+  const textareafun=(e)=>{
+    console.log("function clicked");
+    const data=e.target.value.length>0;
+    console.log(data,"data from textareafun")
+    setFlag(data?"true":"false");
+    
+
+  }
+
   return (
     <>
       <div className="pageContainer">
         <div className="leftSection">
           <div className="dropDown-container">
-            <span>Genrate Code in:</span>
+            <span>Generate Code in:</span>
             <DropDownBox
               label={""}
               cssName={"select-box-container-concept"}
@@ -54,13 +73,14 @@ const[querydata,setQuerydata]=useState(false);
             />
           </div>
           <div className="textRow">
-            <div className="descriptionBox">
+            <div className="descriptionBox" >
               <textarea
+              style={{ width: textareaSize,height:textareaheight }}
                 id="description"
                 rows="10"
                 cols="50"
                 placeholder="Enter your text here"
-              ></textarea>
+              onChange={(e)=>textareafun(e)}></textarea>
             </div>
             <div className="fileUploadBox">
               <div htmlFor="fileInput" className="dottedBox">
@@ -70,39 +90,44 @@ const[querydata,setQuerydata]=useState(false);
                 <span>Choose a file to or drag & drop it here</span>
                 <span>.dov,csv,pdf formats,are accepted</span>
                 <button
-              className="btnclsbrowse"
-              onClick={() => fileInputRef.current.click()}
+                  className="btnclsbrowse"
+                  onClick={() => fileInputRef.current.click()}
                 >
-            Browse Files
-            </button>
+                  Browse Files
+                </button>
               </div>
-              <input type="file"
+              <input
+                type="file"
                 ref={fileInputRef}
-              accept=".pdf, .doc, .docx"
+                accept=".pdf, .doc, .docx"
                 onChange={handleFileUpload}
-/>
+              />
             </div>
           </div>
           <div className="buttonRow">
-            <button className="Buildbtn" onClick={()=>buildquerydata()}>Build Query</button>
+            <button className="Buildbtn" onClick={buildquerydata}>Build Query</button>
           </div>
-          <div className="Querycls">
-            <span className="txtclsquery">Here is your desired output</span>
-            <p>{querydata}</p>
-          </div>
-          <div className="output-container">
-
-           
-            <Querybox handleOutpClick={handleOutpClick} sqldata={querydata}/>
-          </div>
+          {querydata && flag && (
+            <div className="Querycls">
+              <span className="txtclsquery">Here is your desired output</span>
+              <p>{querydata}</p>
+            </div>)}
+            {querydata && flag && ( <div className="output-container">
+            <Querybox handleOutpClick={handleOutpClick} sqldata={querydata} />
+          </div>)}
         </div>
-
-        <div className="rightSection">
-          {/* Content for the right section */}
-
-          <br />
-          <BuildCodeRight  />
-
+        <div>
+          <div className="arrow" onClick={toggleCollapse}>
+            {isOpen ? "▼" : "►"}
+          </div>
+          
+          {isOpen && (
+            <div className="rightSection">
+              {/* Content for the right section */}
+              <br />
+              <BuildCodeRight />
+            </div>
+          )}
         </div>
       </div>
     </>

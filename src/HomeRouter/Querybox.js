@@ -43,6 +43,7 @@ export default function Querybox({ handleOutpClick, sqldata }) {
 
   return (
     <>
+    {sqldata && (
       <div className="output-box">
       <div className="image-container">
           <FaCopy
@@ -57,10 +58,11 @@ export default function Querybox({ handleOutpClick, sqldata }) {
            
           />
         </div>
+        
         <div className="content">
-          {sqldata && <p>{dtquery}</p>}
+         <p>{dtquery}</p>
         </div>
-      </div>
+      </div>)}
       {/* <div className="output-box">
         <div className="image-container">
           <FaCopy style={iconstyle} title="Copy" />

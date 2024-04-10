@@ -10,7 +10,7 @@ export default function Headers(){
              <div className="centerText">
             <p className='hdrtext'> Code Assist</p>
              {/* <br></br> */}
-             <p className="childtext">Your personal coding assistant at your service</p>
+             <p className="childtext"> Personal coding assistant at your service</p>
              </div>
             </div>
            

@@ -128,7 +128,7 @@
     cursor: pointer;
     width: 330px;
     margin-left: 10px;
-    height: 245px;
+    height: 330px;
   }
 
   input[type="file"] {
@@ -355,4 +355,16 @@
     margin-left: 10px;
     margin-right: 10px;
   }
+
+  .descriptionBox {
+    flex: 0.8; /* 80% of the available space */
+  }
+  
+  .fileUploadBox {
+    flex: 0.2; /* 20% of the available space */
+  }
+  .arrow{
+    cursor: pointer;
+  }
+  
 }
