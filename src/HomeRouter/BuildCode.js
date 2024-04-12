@@ -10,12 +10,15 @@ import Querybox from "./Querybox";
 import { AppContext } from '../Context/AppContext';
 import { useRef } from "react";
 import { FaLessThan,FaGreaterThan } from "react-icons/fa";
+import greaterthan from  "../images/greaterthan.png"
+import grtr from "../images/Geat.png"
+import Smlr from "../images/smler.png"
 
 export default function Buildingcode() {
   const { FetchData, dispatch } = useContext(AppContext);
   const [querydata, setQuerydata] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [textareaSize, setTextareaSize] = useState("100%"); // Initial size
+  const [textareaSize, setTextareaSize] = useState("1085px"); // Initial size
   const[textareaheight,setTextareaheight]=useState("330px");
   const[flag,setFlag]=useState(false);
 
@@ -24,7 +27,7 @@ export default function Buildingcode() {
   const toggleCollapse = () => {
     setIsOpen(!isOpen);
     // Adjust textarea size based on isOpen state
-    setTextareaSize(isOpen ? "1050px" : "100%");
+    setTextareaSize(isOpen ? "1085px" : "100%");
     setTextareaheight(isOpen?"330px":"100%");
   };
 
@@ -54,8 +57,8 @@ export default function Buildingcode() {
   const textareafun=(e)=>{
     console.log("function clicked");
     const data=e.target.value.length>0;
-    console.log(data,"data from textareafun")
-    setFlag(data?"true":"false");
+    console.log(data,flag,"data from textareafun")
+    setFlag(data);
     
 
   }
@@ -72,7 +75,16 @@ export default function Buildingcode() {
               dropDownBoxData={status}
               type={"concept"}
             />
+             <div className="arrowcls" style={{ marginLeft: !isOpen ? '1028px' : '305px' }} onClick={toggleCollapse}>
+            {isOpen ? (
+              
+             <span className="greatercls">&#62;</span> 
+              
+              
+            ):(  <span className="greatercls">&#60;</span>)}
           </div>
+          </div>
+         
           <div className="textRow">
             <div className="descriptionBox" >
               <textarea
@@ -106,7 +118,7 @@ export default function Buildingcode() {
             </div>
           </div>
           <div className="buttonRow">
-            <button className={flag?"Buildbtn":"Buildbtndisable"} onClick={buildquerydata} disabled={!flag}>Build Query</button>
+            <button className={flag?"Buildbtn":"Buildbtndisable"} onClick={buildquerydata} >Build Query</button>
           </div>
           {querydata && flag && (
             <div className="Querycls">
@@ -116,24 +128,20 @@ export default function Buildingcode() {
             {querydata && flag && ( <div className="output-container">
             <Querybox handleOutpClick={handleOutpClick} sqldata={querydata} />
           </div>)}
+          
         </div>
-        <div>
-          <div className="arrow" onClick={toggleCollapse}>
-            {isOpen ? (
-              <FaLessThan />
-              
-            ):(<FaGreaterThan />)}
-          </div>
+            
           
           {isOpen && (
             <div className="rightSection">
+           
               {/* Content for the right section */}
               <br />
               <BuildCodeRight />
             </div>
           )}
         </div>
-      </div>
+      
     </>
   );
 }

@@ -126,8 +126,8 @@ if (filtereddata && Array.isArray(filtereddata)) {
   
 
   return (
-    <div className="accordion-content">
-      <table>
+    <div className="accordion-content" style={{ maxHeight: "360px", overflowY: "auto" }}>
+      <table >
         <thead>
           <tr>
             <th>Column</th>
@@ -145,6 +145,7 @@ if (filtereddata && Array.isArray(filtereddata)) {
         {item.rowData && Array.isArray(item.rowData) && item.rowData.map((rw, rowindex) => (
           <tr key={`${index}-${rowindex}`}>
             <td>
+           
               <span>{rw.fieldName}</span>
             </td>
             <td

@@ -1,26 +1,3 @@
-// import React, { createContext, useReducer, useContext } from 'react';
-
-// // Initial state
-// const initialState = {
-//   tabs: [],
-//   tableData: [],
-//   updquery: [],
-//   updateTable: false,
-//   sqlQuery: '',
-// };
-
-// // Create context
-// const AppContext = createContext();
-
-// // Provider component
-// export const AppProvider = ({ reducer, children }) => (
-//   <AppContext.Provider value={useReducer(reducer, initialState)}>
-//     {children}
-//   </AppContext.Provider>
-// );
-
-// // Custom hook to use AppContext
-// export const useAppContext = () => useContext(AppContext);
 import React, { createContext, useReducer, useContext } from 'react';
 import { initialState, reducer } from './AppReducer'; // Import initialState and reducer
 import jsonData from '../assets/db.json'
@@ -78,6 +55,7 @@ return(
   Dropdownchangesstatus:state.Dropdownchangesstatus,
   Allchangeslist:state.Allchangeslist,
   Updated_Table:state.Updated_Table,
+  Updated_TableName:state.Updated_TableName,
 
   FetchData}}>
     {children}

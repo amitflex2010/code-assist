@@ -115,8 +115,8 @@
 
   },
   {
-    "domain": "Claims",
-    "tableName": "Claim Diagnosis",
+    "domain": "claim",
+    "tableName": "CLAIMLINE",
     "fieldName":"CLCL_ID",
     "Selected":"Y",
     "Summurized":"Min",
@@ -125,28 +125,15 @@
 
   },
   {
-    "domain": "Eligibility",
-    "tableName": "Claim Diagnosis",
+    "domain": "Membership",
+    "tableName": "MEMBER",
     "fieldName":"MEME_CK",
     "Selected":"Y",
     "Summurized":"Min",
-    "Used_in_filter":"Y",
-    "Used_in_join":"N"
-    
-    
-
-  },
-  {
-    "domain": "Providers",
-    "tableName": "Claim Diagnosis",
-    "fieldName":"GRGR_CK",
-    "Selected":"Y",
-    "Summurized":"Max",
-    "Used_in_filter":"Y",
-    "Used_in_join":"N"
-    
-    
+    "Used_in_filter":"N",
+    "Used_in_join":"Y"
 
   }
+
 ]
 }

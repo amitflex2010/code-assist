@@ -9,6 +9,7 @@ export const initialState = {
   Allchangeslist:[],
   updTabledata:[],
   Updated_Table:[],
+  Updated_TableName:[],
 };
 
 export const reducer = (state, action) => {
@@ -61,6 +62,7 @@ export const reducer = (state, action) => {
           ...state,
           Updated_Table:action.payload
         }
+        
             
       
      
