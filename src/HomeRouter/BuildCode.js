@@ -77,11 +77,16 @@ export default function Buildingcode() {
             />
              <div className="arrowcls" style={{ marginLeft: !isOpen ? '1028px' : '305px' }} onClick={toggleCollapse}>
             {isOpen ? (
-              
+              <>
              <span className="greatercls">&#62;</span> 
+             <span className="greatercls">&#62;</span> 
+             </>
               
-              
-            ):(  <span className="greatercls">&#60;</span>)}
+            ):(
+              <> 
+               <span className="greatercls">&#60;</span>
+               <span className="greatercls">&#60;</span>
+               </>)} 
           </div>
           </div>
          

@@ -73,7 +73,7 @@
   .nav-links {
     color: #333; /* Example text color for the navigation links */
     /* padding: 19px 28px 22px; */
-    padding: 24px 69px 31px;
+    padding: 24px 72px 31px;
     border-radius: 12px 12px 0 0; /* Example border-radius for rounded corners */
     transition: background-color 0.1s ease; /* Smooth transition for background color */
     border: 1px solid #ccc; /* Border for the navigation links */
@@ -187,6 +187,7 @@
     /* height: 350px; */
     padding:5px;
   }
+  
 
   .image-container {
     position: absolute;
@@ -311,7 +312,7 @@
   .accordion {
     width: 100%;
     max-width: 600px;
-    margin: 20px auto;
+    margin-top: 20px;
   }
 
   .accordion-section {
@@ -427,15 +428,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 550px;
+   width: 610px;
 }
 
-.dot-container,
-.header-content,
-.arrow-container {
-  flex: 1;
+.dot-container {
   display: flex;
-  justify-content: center;
+  align-items: center;
 }
 
 .dot {
@@ -443,7 +441,7 @@
   width: 15px;
   background-color: #bbb;
   border-radius: 50%;
-  margin-right:140px /* Adjust margin as needed */
+  margin-right:10px /* Adjust margin as needed */
 }
 
 .green-dot {
@@ -455,7 +453,12 @@
    margin: 0 10px; 
   /* Adjust margin as needed */
 }
-
+.question-content {
+  margin-left: 10px; /* Adjust as needed */
+}
+.arrow-container {
+  margin-left: auto; /* Push arrow to the right */
+}
 .wrapper .arrow {
   font-size: 2rem;
   transition: 0.5s ease-in-out;
@@ -466,5 +469,6 @@
   color:orangered;
   cursor: pointer;
 }
+
   
 }
