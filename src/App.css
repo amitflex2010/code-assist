@@ -256,7 +256,7 @@
   }
 
   .li-style{
-    width: 20%;
+    width: 26%;
     cursor: pointer;
   }
 
@@ -275,9 +275,9 @@
     text-decoration: none;
     padding: 10px;
     color: lightgray; /* Set the default text color for inactive links */
-    text-align: center;
     border: 1px solid #ccc; /* Add a border to create boxes for each link */
     background-color: #f8f8f8; /* Set the background color for each link */
+    border-radius: 4px;
   }
 
   .nav-linksright.active {
@@ -530,6 +530,45 @@ width:1rem;
   border-radius: 0.8rem;
   height: 0.25rem;
 }
+.fieldcls{
+  text-align: left;
+}
+.dotcls{
+  height: 15px;
+  width: 15px;
+  background-color: #bbb;
+  border-radius: 50%;
+}
+.bullet {
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  /* Adjust margin as needed */
+}
 
-  
+
+
+/* Green bullet */
+.bullet.green {
+  background-color: green;
+}
+
+/* Grey bullet */
+.bullet.grey {
+  background-color: grey;
+}
+.domains{
+  display: inline-block;
+  margin-left:20px;
+  font-size:19px;
+}
+.hrnzcls{
+ color:dimgray
+}
+.Qeryboxheader{
+  display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 }

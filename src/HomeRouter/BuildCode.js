@@ -127,7 +127,7 @@ export default function Buildingcode() {
           </div>
           {querydata && flag && (
             <div className="Querycls">
-              <span className="txtclsquery">Here is your desired output</span>
+              
               <p>{querydata}</p>
             </div>)}
             {querydata && flag && ( <div className="output-container">

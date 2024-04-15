@@ -144,9 +144,9 @@ if (filtereddata && Array.isArray(filtereddata)) {
       <React.Fragment key={index}>
         {item.rowData && Array.isArray(item.rowData) && item.rowData.map((rw, rowindex) => (
           <tr key={`${index}-${rowindex}`}>
-            <td>
+            <td className="fieldcls">
            
-              <span>{rw.fieldName}</span>
+              <span >{rw.fieldName}</span>
             </td>
             <td
               onDoubleClick={() =>

@@ -57,6 +57,8 @@ GROUP BY
     <>
       {sqldata && (
         <div className="output-box">
+        <div className="Qeryboxheader">
+        <span>Query Output</span>
           <div className="image-container">
             <FaCopy
               style={sqldata ? iconstyle : disabledIconStyle}
@@ -70,9 +72,11 @@ GROUP BY
 
             />
           </div>
+          </div>
+          <hr className="hrnzcls" />
 
           <div className="content">
-            <p style={{height:"auto",marginTop:"30px"}}>{dtquery}</p>
+            <p style={{height:"auto",marginTop:"10px"}}>{dtquery}</p>
           </div>
         </div>)}
       

@@ -14,7 +14,7 @@ const AccordionItem = ({ header, isOpen, onClick, data }) => {
 
   const contentHeight = useRef();
   
- console.log(tableData,updateTable,"tabledata")
+ console.log(header,"tabledata")
  // console.log(tableName,columnLine,header,"value of tablename")
   const datasss = updquery;
 
