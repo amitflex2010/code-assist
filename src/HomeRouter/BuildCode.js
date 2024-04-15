@@ -18,7 +18,7 @@ export default function Buildingcode() {
   const { FetchData, dispatch } = useContext(AppContext);
   const [querydata, setQuerydata] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [textareaSize, setTextareaSize] = useState("1085px"); // Initial size
+  const [textareaSize, setTextareaSize] = useState("850px"); // Initial size
   const[textareaheight,setTextareaheight]=useState("330px");
   const[flag,setFlag]=useState(false);
 
@@ -27,7 +27,7 @@ export default function Buildingcode() {
   const toggleCollapse = () => {
     setIsOpen(!isOpen);
     // Adjust textarea size based on isOpen state
-    setTextareaSize(isOpen ? "1085px" : "100%");
+    setTextareaSize(isOpen ? "850px" : "100%");
     setTextareaheight(isOpen?"330px":"100%");
   };
 
@@ -78,14 +78,14 @@ export default function Buildingcode() {
              <div className="arrowcls" style={{ marginLeft: !isOpen ? '1028px' : '305px' }} onClick={toggleCollapse}>
             {isOpen ? (
               <>
-             <span className="greatercls">&#62;</span> 
-             <span className="greatercls">&#62;</span> 
+             <span className="greatercls" title="collapse">&#x226B;</span> 
+             
              </>
               
             ):(
               <> 
-               <span className="greatercls">&#60;</span>
-               <span className="greatercls">&#60;</span>
+               <span className="greatercls" title="expand">&#x226A;</span>
+               
                </>)} 
           </div>
           </div>
@@ -93,7 +93,7 @@ export default function Buildingcode() {
           <div className="textRow">
             <div className="descriptionBox" >
               <textarea
-              style={{ width: textareaSize }}
+              style={{ width: textareaSize ,resize:"none"}}
                 id="description"
                 rows="10"
                 cols="50"
@@ -101,7 +101,7 @@ export default function Buildingcode() {
               onChange={(e)=>textareafun(e)}></textarea>
             </div>
             <div className="fileUploadBox">
-              <div htmlFor="fileInput" className="dottedBox">
+              <div htmlFor="fileInput" className="dottedBox" style={{width:isOpen?"330px":"545px"}}>
                 <div>
                   <img src={newcloud} className="imgcls" />
                 </div>

@@ -126,13 +126,13 @@ if (filtereddata && Array.isArray(filtereddata)) {
   
 
   return (
-    <div className="accordion-content" style={{ maxHeight: "360px", overflowY: "auto" }}>
-      <table >
+    <div className="accordion-content" style={{ maxHeight: "360px", overflowY: "scroll" }}>
+      <table style={{fontSize:"13px"}} >
         <thead>
           <tr>
             <th>Column</th>
             <th>Select</th>
-            <th>AggregateFunction</th>
+            <th>Aggregate</th>
             <th>Used in filter</th>
             <th>Used in join</th>
           </tr>

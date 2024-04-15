@@ -11,7 +11,7 @@
 .wrapper .question-container {
   width: 100%;
   text-align: left;
-  padding: 8px 10px;
+  /* padding: 8px 10px; */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -20,12 +20,17 @@
   background: transparent;
   border: none;
   cursor: pointer;
+  height:70px;
 }
 
 .question-container.active {
-  color: black;
-  background-color: #f3d2c7;
+  color:black;
+   background-color: #f3d2c7;  
+   /* background-color: orangered; */
 }
+/* .question-container:hover{
+  background-color:lightgrey;
+} */
 
 .wrapper .question-container:hover {
   background-image: linear-gradient(

@@ -119,7 +119,7 @@ setHeaderColor(finalres.includes(header.toLowerCase()) ? 'green' : 'grey');
       {/* <p className={`dot ${(headerColor === 'green' && updateTable) ? 'green-dot' : ''}`}></p>
         <p className="question-content">{header}</p>
         <RiArrowDropDownLine className={`arrow ${isOpen ? "active" : ""}`} /> */}
-        <div className="header">
+        
   <div className="dot-container">
     <span className={`dot ${(headerColor === 'green' && updateTable) ? 'green-dot' : ''}`}></span>
     
@@ -130,7 +130,7 @@ setHeaderColor(finalres.includes(header.toLowerCase()) ? 'green' : 'grey');
   <div className="arrow-container">
     <RiArrowDropDownLine className={`arrow ${isOpen ? "active" : ""}`} />
   </div>
-</div>
+
 
       </button>
 
