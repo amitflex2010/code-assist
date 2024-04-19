@@ -2,6 +2,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AppContext, useAppContext } from '../Context/AppContext'; 
 import AccordiansRight from './AccordiansRight';
+
+import * as XLSX from 'xlsx';
 //import '../../App.css';
 import '../App.css';
 export default function BuildCodeRight() {
@@ -13,12 +15,53 @@ export default function BuildCodeRight() {
   const [activeDomain, setActiveDomain] = useState(
    'Claim'
   );
+  const[btnstatus,setBtnstatus]=useState(false);
   const [headerColor, setHeaderColor] = useState('grey'); 
   
   const handleNavLinkClick = (domain) => {
     setActiveLink(`/${domain}`);
     setActiveDomain(domain);
   };
+ 
+    
+
+  const isHeaderInUpdatedItems = upddata.map((item) => item.domain);
+  const result=[...new Set(isHeaderInUpdatedItems)]
+  const finalres=result.map(item=>item.toLowerCase());
+  console.log(updquery,"updquery data ")
+ 
+    const fileName = 'example.xlsx';
+  
+    const Exportexcel = () => {
+      
+      const wb = XLSX.utils.book_new();
+    
+      // Group records by tableName
+      const groups = {};
+      updquery.forEach((item) => {
+        if (!groups[item.tableName]) {
+          groups[item.tableName] = [];
+        }
+        groups[item.tableName].push(item);
+      });
+    
+      // Iterate over groups and create worksheets
+      Object.keys(groups).forEach((tableName) => {
+        const groupData = groups[tableName];
+        const wsData = [Object.keys(groupData[0])]; // Header row
+        groupData.forEach((record) => {
+          wsData.push(Object.values(record)); // Data rows
+        });
+        const ws = XLSX.utils.aoa_to_sheet(wsData);
+        XLSX.utils.book_append_sheet(wb, ws, tableName);
+      });
+    
+      // Save workbook to file
+      XLSX.writeFile(wb, fileName);
+      setBtnstatus(true);
+    };
+    
+  
 
   const handleGenerateQueryClick = () => {
     // Logic to generate SQL query based on the active domain
@@ -34,10 +77,8 @@ const initialActiveDomain = tabs?.length > 0 ? tabs[0] : 'Claims';
     setActiveDomain(initialActiveDomain);
 },[tabs])
 
-const isHeaderInUpdatedItems = upddata.map((item) => item.domain);
-  const result=[...new Set(isHeaderInUpdatedItems)]
-  const finalres=result.map(item=>item.toLowerCase());
-  console.log(finalres,"from buildcode right")
+
+  
 
 
   return (
@@ -70,7 +111,8 @@ const isHeaderInUpdatedItems = upddata.map((item) => item.domain);
               <button className="right-button" onClick={handleGenerateQueryClick} >
                 Update Query
               </button>
-              <button className="outline-button">Export to Excel</button>
+              <button className="outline-button" onClick={()=>Exportexcel()} disabled={!updateTable}>Export to Excel</button>
+             
             </div>
 
             {tableData && (
