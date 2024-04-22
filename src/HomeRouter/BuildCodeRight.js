@@ -39,10 +39,11 @@ export default function BuildCodeRight() {
       // Group records by tableName
       const groups = {};
       updquery.forEach((item) => {
-        if (!groups[item.tableName]) {
-          groups[item.tableName] = [];
+        const tableNameUpperCase = item.tableName.toUpperCase(); 
+        if (!groups[tableNameUpperCase]) {
+          groups[tableNameUpperCase]= [];
         }
-        groups[item.tableName].push(item);
+        groups[tableNameUpperCase].push(item);
       });
     
       // Iterate over groups and create worksheets

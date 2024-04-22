@@ -11,9 +11,37 @@ export const AppContext = createContext(initialState);
 export const AppProvider = ({ children }) => {
 
   
-  const[alldata,setAlldata]=useState([])
+ 
+  
+  const[alldata,setAlldata]=useState([]);
+  
+  const sampleqry=`'select sum(T1.Field1),count(T2.Field2) as CTF from Table1 as T1
+   inner join Table2 as T2 On T1.Field1=T2.Field5 where T1.Field2='X' and T2.Field3='Y'`
+  const[querydata,setQuerydata]=useState(null);
   const [state, dispatch] = useReducer(reducer, initialState);
+  const { sqlQuery,setbuildquery,setJsonlist } = state;
+
+ 
+  
+  useEffect(() => {
+    if (setbuildquery && sqlQuery) {
+      const encodedSqlQuery = encodeURIComponent(sqlQuery);
+      const apiUrl = `https://codeassistapi.azurewebsites.net/api/sqlToJson?sqlQuery=${encodedSqlQuery}`;
+  
+      axios.get(apiUrl)
+        .then(response => {
+          setQuerydata(response.data);
+          setJsonlist.push(response.data);
+          
+        })
+        .catch(error => {
+          console.error('Error fetching query data:', error);
+        });
+    }
+  }, [setbuildquery, sqlQuery]);
+
   function FetchData() {
+
     axios.get("https://codeassistapi.azurewebsites.net/api/systems")
       .then(response => {
         const data = response.data;
@@ -44,7 +72,11 @@ export const AppProvider = ({ children }) => {
       .catch(error => {
         console.error('Error fetching data:', error);
       });
-  }
+     
+  
+
+}
+  
 return(
   <AppContext.Provider value={{  tableData: state.tableData,dispatch , 
   tabs:state.tabs,
@@ -56,6 +88,8 @@ return(
   Allchangeslist:state.Allchangeslist,
   Updated_Table:state.Updated_Table,
   Updated_TableName:state.Updated_TableName,
+  setbuildquery:state.setbuildquery,
+  setJsonlist:state.setJsonlist,
 
   FetchData}}>
     {children}

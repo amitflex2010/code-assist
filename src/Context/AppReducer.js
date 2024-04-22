@@ -3,13 +3,16 @@ export const initialState = {
   tableData: [],
   updquery: [],
   updateTable: false,
-  sqlQuery: 'select Dat1,Data2,* from domain',
+  // sqlQuery: 'select Dat1,Data2,* from domain',
   hasUnsavedChanges:false,
   Dropdownchangesstatus:false,
   Allchangeslist:[],
   updTabledata:[],
   Updated_Table:[],
   Updated_TableName:[],
+ sqlQuery:'',
+ setbuildquery:false,
+ setJsonlist:[],
 };
 
 export const reducer = (state, action) => {
@@ -37,11 +40,7 @@ export const reducer = (state, action) => {
         ...state,
         updateTable: action.payload,
       };
-    case 'SET_SQL_QUERY':
-      return {
-        ...state,
-        sqlQuery: action.payload,
-      };
+ 
       case 'SET_BUTTON_STATUS':
         return{
           ...state,
@@ -62,8 +61,25 @@ export const reducer = (state, action) => {
           ...state,
           Updated_Table:action.payload
         }
+        case 'SET_SQL_QUERY':
+         return {
+          ...state,
+        sqlQuery: action.payload,
         
-            
+  };
+      case 'SET_BUILD_BUTTON':
+        
+          return {
+            ...state,
+            setbuildquery:action.payload,
+          };
+
+        case 'JSON_QUERY_LIST':
+        return {
+          ...state,
+          setJsonlist:action.payload,
+        }
+
       
      
        

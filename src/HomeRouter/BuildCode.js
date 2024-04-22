@@ -49,17 +49,20 @@ export default function Buildingcode() {
     setQuerydata(true);
   
     }
+    console.log("himanshu")
+    dispatch({type:'SET_BUILD_BUTTON',payload:true});
   };
 
   useEffect(() => {
     FetchData();
   }, []);
   const textareafun=(e)=>{
-    console.log("function clicked");
-    const data=e.target.value.length>0;
-    console.log(data,flag,"data from textareafun")
-    setFlag(data);
     
+    const data=e.target.value.length>0;
+    const qryresult=e.target.value;
+    
+    setFlag(data);
+    dispatch({type:'SET_SQL_QUERY',payload:qryresult});
 
   }
 

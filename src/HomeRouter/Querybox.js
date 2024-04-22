@@ -4,23 +4,8 @@ import { MdOutlineOutput } from "react-icons/md";
 import { FaCopy } from "react-icons/fa";
 import { useState } from "react";
 export default function Querybox({ handleOutpClick, sqldata }) {
-  const [dtquery, setDtquery] = useState(`SELECT 
-  CH.CLCL_ID,
-  CH.SBSB_CK,
-  SUM(CL.CLCL_ID) AS Sumdata,
-  MAX(CH.SBSB_CK) AS Maxdata
-FROM 
-  claimheader AS CH
-JOIN 
-  claimline AS CL 
-ON 
-  CH.CLCL_ID = CL.CLCL_ID
-WHERE 
-  CH.SBSB_CK > 100
-GROUP BY 
-  CH.CLCL_ID,
-  CH.SBSB_CK;
-  `);
+ 
+ 
 
   const [outputstatus, setOutputstatus] = useState(false);
   const {
@@ -32,8 +17,10 @@ GROUP BY
     FetchData,
     hasUnsavedChanges,
     Dropdownchangesstatus,
+    setJsonlist
   } = useContext(AppContext);
 
+  console.log(setJsonlist,"values from setjsonlist")
   const handleImageClick = () => {
     if (sqldata) {
       setOutputstatus(true);
@@ -52,6 +39,8 @@ GROUP BY
     color: "grey",
     cursor: !sqldata ? "not-allowed" : "pointer",
   };
+  const JsonList=setJsonlist.flat();
+  console.log(JsonList,"JSON List")
 
   return (
     <>
@@ -76,7 +65,7 @@ GROUP BY
           <hr className="hrnzcls" />
 
           <div className="content">
-            <p style={{height:"auto",marginTop:"10px"}}>{dtquery}</p>
+            <p style={{height:"auto",marginTop:"10px"}}> {JSON.stringify(JsonList.map(item => item.Fields).flat(), null, 2)}</p>
           </div>
         </div>)}
       
