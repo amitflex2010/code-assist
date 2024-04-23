@@ -1,1 +1,1 @@
-export const status = [{0:'SAAS'}, {1:'IAAS'}, {2:'PAAS'}];
+export const status = [{0:'Base SaS'}, {1:'Sql'}]
