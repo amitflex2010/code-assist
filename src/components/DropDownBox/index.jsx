@@ -27,14 +27,7 @@ function DropDownBox(props) {
     //onSelect(selectedOption.label);
   };
 
-  // useEffect(() => {
-  //   if (type === "notes") {
-  //     setSelectedOption({
-  //       label: selectedValue.Concept_Review_Status,
-  //       value: selectedValue.Concept_Review_Status,
-  //     });
-  //   }
-  // }, [selectedValue]);
+ 
 
   const renderComponent = (type) => {
     switch (type) {

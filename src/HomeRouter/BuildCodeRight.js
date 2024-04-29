@@ -6,12 +6,24 @@ import AccordiansRight from './AccordiansRight';
 import * as XLSX from 'xlsx';
 //import '../../App.css';
 import '../App.css';
+import { MdDomainVerification } from 'react-icons/md';
 export default function BuildCodeRight() {
-  const { tabs, tableData, updquery , dispatch,hasUnsavedChanges,Dropdownchangesstatus,updateTable} = useContext(AppContext);
+  const { tabs, tableData, updquery , dispatch,hasUnsavedChanges,Dropdownchangesstatus,updateTable,setJsonlist} = useContext(AppContext);
 
+ console.log(tabs,"tabs")
+  function getdomainname(finalres,tableData,fieldfinalresult){
+    let domain=[];
+    tableData.forEach(item=>{
+      if(item.rowData && finalres.includes(item.table_name.toLowerCase()) && item.rowData.some(row=>fieldfinalresult.includes(row.fieldName))){
+        let result=item.domain_name.toLowerCase();
+        domain.push(result)
+      }
+    })
+    return domain;
+  }
   const upddata=updquery;
   const [activeLink, setActiveLink] = useState('/claims');
-  // const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+  
   const [activeDomain, setActiveDomain] = useState(
    'Claim'
   );
@@ -23,12 +35,43 @@ export default function BuildCodeRight() {
     setActiveDomain(domain);
   };
  
-    
 
-  const isHeaderInUpdatedItems = upddata.map((item) => item.domain);
-  const result=[...new Set(isHeaderInUpdatedItems)]
-  const finalres=result.map(item=>item.toLowerCase());
-  console.log(updquery,"updquery data ")
+
+const newresult=setJsonlist.map((item)=>{
+  const formerresult=item.Fields.map(fi=>{
+    return fi.table_name?Object.values(fi.table_name)[0]:null
+  })
+  return formerresult
+});
+const fieldresult=setJsonlist.map((item)=>{
+  const fields=item.Fields.map(fi=>{
+    return fi.column_name?fi.column_name:null
+  })
+  return fields
+})
+
+
+const fieldflateenresult=fieldresult.flat().filter(item=>item!==null);
+const fieldfinalresult=[...new Set(fieldflateenresult)].map(item => typeof item === 'string' ? item: '');
+console.log(tableData,fieldfinalresult,"fieldresultssss")
+
+const flattenedResult = newresult.flat().filter(item => item !== null);
+const finalres = [...new Set(flattenedResult)].map(item => typeof item === 'string' ? item.toLowerCase() : '');
+
+
+
+
+
+  // const result=[...new Set(isHeaderInUpdatedItems)]
+  
+  
+  
+  let  domainsName=getdomainname(finalres,tableData,fieldfinalresult);
+  domainsName=[...new Set(domainsName)];
+
+  console.log(domainsName,"doooomains")
+
+ 
  
     const fileName = 'example.xlsx';
   
@@ -69,7 +112,7 @@ export default function BuildCodeRight() {
     if(hasUnsavedChanges)
     {
     dispatch({type:'SET_DROPDOWN_STATUS',payload:true})
-    }console.log(Dropdownchangesstatus,hasUnsavedChanges,"click pe functionality")
+    }
   };
 useEffect(()=>{
 
@@ -95,7 +138,7 @@ const initialActiveDomain = tabs?.length > 0 ? tabs[0] : 'Claims';
                   }`}
                   onClick={() => handleNavLinkClick(domain)}
                 >
-                 <span className={finalres.includes(domain.toLowerCase()) && updateTable? "bullet green" : "bullet grey"}></span>
+                 <span className={domainsName.includes(domain.toLowerCase()) && updateTable? "bullet green" : "bullet grey"}></span>
                 <span className='domains'> {domain}</span>
                   
                 

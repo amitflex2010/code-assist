@@ -8,7 +8,7 @@ const Table = ({ tableValues, onDoubleClick, onDropdownChange,data }) => {
   const [editingColumn, setEditingColumn] = useState(null);
   const[dropdwnvalue,setdropDwnvalue]=useState(null);
   const { tabs, tableData, updquery, updateTable, sqlQuery,dispatch, FetchData,hasUnsavedChanges,Updated_Table } = useContext(AppContext);
-  const handleDoubleClick = (column, value, index) => {
+    const handleDoubleClick = (column, value, index) => {
     
     setEditingIndex(index);
     setEditingColumn(column);
@@ -18,15 +18,14 @@ const Table = ({ tableValues, onDoubleClick, onDropdownChange,data }) => {
   
   const filtereddata=tableData.filter((item,index)=>
     {
-      return (item.domain_name===data.domain_name && item.table_name===data.table_name)
+      return ( item.table_name===data.table_name)
       
     }
     )
-   
-   
+    
 
     const filteredindexes = tableValues.map((item, index) => {
-      if (item.domain===data.domain && item.table_name===data.table_name) {
+      if ( item.table_name===data.table_name) {
         return index;
       }
       return null; // Return null for elements that don't match the target
@@ -69,7 +68,7 @@ const uniqueArray = flattenedArray.filter((obj, index, self) =>
         JSON.stringify(o) === JSON.stringify(obj)
     )
 );
-console.log(uniqueArray,"unique array ")
+
  
     
      // Notify parent about the change
@@ -164,7 +163,7 @@ if (filtereddata && Array.isArray(filtereddata)) {
                   <option value="Y">Y</option>
                   <option value="N">N</option>
                 </select>
-              ) : rw.selected === "Y" ? (
+              ) : rw.selected === "Y" || rw.selected===true ? (
                 <FaCheck />
               ) : (
                 <FaTimes />
@@ -197,8 +196,8 @@ if (filtereddata && Array.isArray(filtereddata)) {
                 rw.summarized
               )}
             </td>
-            <td>{rw.usedinfilter}</td>
-            <td>{rw.usedinjoin}</td>
+            <td>{rw.usedinfilter===true ?"Y":"N"}</td>
+            <td>{rw.usedinjoin=== true?"Y":"N"}</td>
           </tr>
         ))}
       </React.Fragment>

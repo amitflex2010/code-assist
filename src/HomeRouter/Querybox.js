@@ -20,7 +20,7 @@ export default function Querybox({ handleOutpClick, sqldata }) {
     setJsonlist
   } = useContext(AppContext);
 
-  console.log(setJsonlist,"values from setjsonlist")
+ 
   const handleImageClick = () => {
     if (sqldata) {
       setOutputstatus(true);
@@ -40,8 +40,7 @@ export default function Querybox({ handleOutpClick, sqldata }) {
     cursor: !sqldata ? "not-allowed" : "pointer",
   };
   const JsonList=setJsonlist.flat();
-  console.log(JsonList,"JSON List")
-
+ 
   return (
     <>
       {sqldata && (

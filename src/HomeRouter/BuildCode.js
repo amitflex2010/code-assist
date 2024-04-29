@@ -11,8 +11,11 @@ import { AppContext } from '../Context/AppContext';
 import { useRef } from "react";
 import { FaLessThan,FaGreaterThan } from "react-icons/fa";
 import greaterthan from  "../images/greaterthan.png"
-import grtr from "../images/Geat.png"
+//import grtr from "../images/Geat.png"
 import Smlr from "../images/smler.png"
+import grtr from "../images/newicongrter.png"
+import fstfrd from '../images/fast-forward.png'
+import dblarw from '../images/double-arrows.png'
 
 export default function Buildingcode() {
   const { FetchData, dispatch } = useContext(AppContext);
@@ -67,19 +70,25 @@ export default function Buildingcode() {
       <div className="pageContainer">
         <div className="leftSection" style={{ width: isOpen ? "50%" : "100%" }}>
           <div className="dropDown-container">
-            <span>Generate Code in:</span>
+            <div style={{width:"18%",display:'flex'}}>Generate Code in:</div>
+            <div>
             <DropDownBox
               label={""}
               cssName={"select-box-container-concept"}
               dropDownBoxData={status}
               type={"concept"}
             />
+            </div>
             <div className="arrowcls" style={{ position: 'relative', display: 'flex', justifyContent: 'flex-end', width: '100%' }} onClick={toggleCollapse}>
-              {isOpen ? (
+              {/* {isOpen ? (
                 <span className="greatercls" title="collapse">&#x226B;</span> 
               ) : (
                 <span className="greatercls" title="expand">&#x226A;</span>
-              )}
+              )} */}
+             {isOpen ?(<img src={grtr} alt='Arrow'/>):(<img src={dblarw} alt='fastford'/>)}
+            </div>
+            <div>
+            
             </div>
           </div>
        
@@ -102,12 +111,14 @@ export default function Buildingcode() {
       </div>
       <span>Choose a file to or drag & drop it here</span>
       <span>.dov,csv,pdf formats,are accepted</span>
+      <div>
       <button
         className="btnclsbrowse"
         onClick={() => fileInputRef.current.click()}
       >
         Browse Files
       </button>
+      </div>
     </div>
     <input
       type="file"

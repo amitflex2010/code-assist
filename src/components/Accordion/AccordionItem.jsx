@@ -10,11 +10,11 @@ import '../../App.css';
 const AccordionItem = ({ header, isOpen, onClick, data }) => {
  
   
-  const { tabs, tableData, updquery, updateTable, sqlQuery,dispatch, FetchData,hasUnsavedChanges,Allchangeslist} = useContext(AppContext); // Access context values
-
+  const { tabs, tableData, updquery, updateTable, sqlQuery,dispatch, FetchData,hasUnsavedChanges,Allchangeslist,setJsonlist} = useContext(AppContext); // Access context values
+ 
   const contentHeight = useRef();
   
- console.log(header,"tabledata")
+
  // console.log(tableName,columnLine,header,"value of tablename")
   const datasss = updquery;
 
@@ -51,49 +51,67 @@ const AccordionItem = ({ header, isOpen, onClick, data }) => {
     })
    
   
+    const results = setJsonlist.map(item => {
+      return item.Fields.map(field => field.table_name);
+  });
   
    
-
     const updatedData = tableData.map((defaultItem) => {
-      // Find all updated items in datasss that correspond to the current defaultItem
-      const updatedItems = datasss.filter(
-          (item) =>
-              item.domain === defaultItem.domain_name &&
-              item.tableName === defaultItem.table_name &&
-              defaultItem.rowData.some(row => row.fieldName === item.fieldName)
-      );
-      
+      const updatedItems = setJsonlist.map(item => {
+        const result = item.Fields.filter((fld) => {
+          if (fld.table_name && typeof fld.table_name === 'object') {
+            
+              return fld.table_name[Object.keys(fld.table_name)[0]] === defaultItem.table_name.toUpperCase() && defaultItem.rowData.filter(row => row.fieldName === fld.column_name);
+          }
+          return false; // Return false if table_name is null or not an object
+      });
+          return result;
+      });
+
+     
+
+       
       if (updatedItems.length > 0 && updateTable) {
-        
-          defaultItem.rowData.forEach(row => {
-              const matchingItem = updatedItems.find(item => item.fieldName === row.fieldName);
-              if (matchingItem) {
-                  row.selected = matchingItem.Selected;
-                  row.summarized = matchingItem.Summurized;
-                  row.usedinfilter = matchingItem.Used_in_filter;
-                  row.usedinjoin = matchingItem.Used_in_join;
-              }
-          });
-      }
+        defaultItem.rowData.forEach(row => {
+            // Find matching items in updatedItems for the current row
+            const matchingItems = updatedItems.flatMap(item => item.filter(mtc => mtc.column_name === row.fieldName));
+          
+            if (matchingItems.length > 0) {
+                // Assuming only one matching item is considered
+                const matchingItem = matchingItems[0];
+               
+              
+                // Update properties of row with matchingItem values
+                row.selected = matchingItem.Selected;
+                row.summarized = matchingItem.Summarized;
+                row.usedinfilter = matchingItem.Used_in_filter;
+                row.usedinjoin = matchingItem.Used_in_join;
+            }
+        });
+    }
+    
      
       return defaultItem;
   });
   
   
   setTableRows(updatedData);
-  const isHeaderInUpdatedItems = datasss.map((item) => item.tableName);
-  const result=[...new Set(isHeaderInUpdatedItems)]
-  const finalres=result.map(item=>item.toLowerCase());
+  const newresult=setJsonlist.map((item)=>{
+    const formerresult=item.Fields.map(fi=>{
+      return fi.table_name?Object.values(fi.table_name)[0]:null
+    })
+    return formerresult
+  });
+  const flattenedResult = newresult.flat().filter(item => item !== null);
+const finalres = [...new Set(flattenedResult)].map(item => typeof item === 'string' ? item.toLowerCase() : '');
+
+  
+  
+  
 // Set header color based on presence in updatedItems
 setHeaderColor(finalres.includes(header.toLowerCase()) ? 'green' : 'grey');
- 
-  
-  
-    
 
-   // setEditedValues(updatedData.map(() => ({ selected: "", summarized: "" }))); // Initialize edited values state
-
-  };
+};
 
   const handleDoubleClick = (value,column, index) => {
 
