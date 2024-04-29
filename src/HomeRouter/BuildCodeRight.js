@@ -53,10 +53,12 @@ const fieldresult=setJsonlist.map((item)=>{
 
 const fieldflateenresult=fieldresult.flat().filter(item=>item!==null);
 const fieldfinalresult=[...new Set(fieldflateenresult)].map(item => typeof item === 'string' ? item: '');
-console.log(tableData,fieldfinalresult,"fieldresultssss")
+
 
 const flattenedResult = newresult.flat().filter(item => item !== null);
 const finalres = [...new Set(flattenedResult)].map(item => typeof item === 'string' ? item.toLowerCase() : '');
+
+console.log(setJsonlist,"fieldresultssss")
 
 
 
@@ -74,30 +76,37 @@ const finalres = [...new Set(flattenedResult)].map(item => typeof item === 'stri
  
  
     const fileName = 'example.xlsx';
-  
     const Exportexcel = () => {
-      
       const wb = XLSX.utils.book_new();
-    
-      // Group records by tableName
       const groups = {};
-      updquery.forEach((item) => {
-        const tableNameUpperCase = item.tableName.toUpperCase(); 
-        if (!groups[tableNameUpperCase]) {
-          groups[tableNameUpperCase]= [];
-        }
-        groups[tableNameUpperCase].push(item);
+      
+      setJsonlist.forEach((set) => {
+        const fields = set.Fields;
+        fields.forEach((field) => {
+          const tableName = field.table_name ? Object.values(field.table_name)[0] : "Unknown"; // Ensure table_name exists
+          if (!groups[tableName]) {
+            groups[tableName] = [];
+          }
+          groups[tableName].push(field);
+        });
       });
     
       // Iterate over groups and create worksheets
       Object.keys(groups).forEach((tableName) => {
-        const groupData = groups[tableName];
-        const wsData = [Object.keys(groupData[0])]; // Header row
-        groupData.forEach((record) => {
-          wsData.push(Object.values(record)); // Data rows
-        });
-        const ws = XLSX.utils.aoa_to_sheet(wsData);
-        XLSX.utils.book_append_sheet(wb, ws, tableName);
+        if (tableName !== "Unknown") { // Skip creating worksheet if tableName is "Unknown"
+          const groupData = groups[tableName];
+          const wsData = [Object.keys(groupData[0])]; // Header row
+          groupData.forEach((record) => {
+            const rowData = Object.keys(record).map(key => {
+              // Convert true/false values to 'Y'/'N'
+              const value = record[key];
+              return typeof value === 'boolean' ? (value ? 'Y' : 'N') : value;
+            });
+            wsData.push(rowData); // Data rows
+          });
+          const ws = XLSX.utils.aoa_to_sheet(wsData);
+          XLSX.utils.book_append_sheet(wb, ws, tableName);
+        }
       });
     
       // Save workbook to file

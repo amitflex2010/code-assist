@@ -85,7 +85,7 @@ export default function Buildingcode() {
               ) : (
                 <span className="greatercls" title="expand">&#x226A;</span>
               )} */}
-             {isOpen ?(<img src={grtr} alt='Arrow'/>):(<img src={dblarw} alt='fastford'/>)}
+             {isOpen ?(<img src={grtr} alt='Arrow' title="collapse" className="imgiconclss"/>):(<img src={dblarw} alt='fastford' title="expand" className="imgiconclss"/>)}
             </div>
             <div>
             
