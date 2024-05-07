@@ -3,7 +3,8 @@ import { AppContext } from "../Context/AppContext";
 import { MdOutlineOutput } from "react-icons/md";
 import { FaCopy } from "react-icons/fa";
 import { useState } from "react";
-export default function Querybox({ handleOutpClick, sqldata }) {
+import HelpmeCodes from "./HelpmeCode";
+export default function Querybox({ handleOutpClick, sqldata,query }) {
  
  
 
@@ -17,10 +18,9 @@ export default function Querybox({ handleOutpClick, sqldata }) {
     FetchData,
     hasUnsavedChanges,
     Dropdownchangesstatus,
-    setJsonlist
+    setJsonlist,setbuildquery,setErrormsg
   } = useContext(AppContext);
 
- 
   const handleImageClick = () => {
     if (sqldata) {
       setOutputstatus(true);
@@ -39,11 +39,17 @@ export default function Querybox({ handleOutpClick, sqldata }) {
     color: "grey",
     cursor: !sqldata ? "not-allowed" : "pointer",
   };
-  const JsonList=setJsonlist.flat();
+  
+
  
+  const JsonList=setJsonlist.flat();
+  console.log(JsonList,"JsonList")
+  const shouldRenderOutputBox = sqldata && query && query.length > 0 && setbuildquery;
+ console.log(query,"querysize")
+
   return (
     <>
-      {sqldata && (
+      {shouldRenderOutputBox &&(
         <div className="output-box">
         <div className="Qeryboxheader">
         <span>Query Output</span>
@@ -64,9 +70,15 @@ export default function Querybox({ handleOutpClick, sqldata }) {
           <hr className="hrnzcls" />
 
           <div className="content">
-            <p style={{height:"auto",marginTop:"10px"}}> {JSON.stringify(JsonList.map(item => item.Fields).flat(), null, 2)}</p>
+          
+            <p style={{height:"auto",marginTop:"10px"}}> {query.length >0 ?JSON.stringify(JsonList.map(item => item.Fields[0]).flat(), null, 2):" "}</p>
           </div>
-        </div>)}
+         <div>
+        
+         </div>
+        </div>
+        
+        )}
       
     </>
   );

@@ -36,6 +36,7 @@ export const AppProvider = ({ children }) => {
         })
         .catch(error => {
           console.error('Error fetching query data:', error);
+          dispatch({type:'SET_ERROR_MSG',payload:"Check your Query syntax"})
         });
     }
   }, [setbuildquery, sqlQuery]);
@@ -90,6 +91,7 @@ return(
   Updated_TableName:state.Updated_TableName,
   setbuildquery:state.setbuildquery,
   setJsonlist:state.setJsonlist,
+  setErrormsg:state.setErrormsg,
 
   FetchData}}>
     {children}

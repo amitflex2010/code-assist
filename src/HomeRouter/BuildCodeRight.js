@@ -1,4 +1,3 @@
-
 import React, { useContext, useEffect, useState } from 'react';
 import { AppContext, useAppContext } from '../Context/AppContext'; 
 import AccordiansRight from './AccordiansRight';
@@ -9,9 +8,24 @@ import '../App.css';
 import { MdDomainVerification } from 'react-icons/md';
 export default function BuildCodeRight() {
   const { tabs, tableData, updquery , dispatch,hasUnsavedChanges,Dropdownchangesstatus,updateTable,setJsonlist} = useContext(AppContext);
-
- console.log(tabs,"tabs")
+ 
   function getdomainname(finalres,tableData,fieldfinalresult){
+    
+
+
+    // Convert fieldfinalresult to lowercase
+    if (Array.isArray(fieldfinalresult)) {
+      fieldfinalresult = fieldfinalresult.map(item => item.toLowerCase());
+    }
+  
+    // Convert finalres elements to lowercase
+    if (Array.isArray(finalres)) {
+      finalres = finalres.map(item => item.toLowerCase());
+    }
+  
+
+  
+    
     let domain=[];
     tableData.forEach(item=>{
       if(item.rowData && finalres.includes(item.table_name.toLowerCase()) && item.rowData.some(row=>fieldfinalresult.includes(row.fieldName))){
@@ -39,7 +53,11 @@ export default function BuildCodeRight() {
 
 const newresult=setJsonlist.map((item)=>{
   const formerresult=item.Fields.map(fi=>{
-    return fi.table_name?Object.values(fi.table_name)[0]:null
+    if(typeof fi.table_name === 'object')
+    return (fi.table_name?Object.values(fi.table_name)[0]:null)
+  else{
+    return fi.table_name?fi.table_name:null;
+  }
   })
   return formerresult
 });
@@ -57,23 +75,13 @@ const fieldfinalresult=[...new Set(fieldflateenresult)].map(item => typeof item 
 
 const flattenedResult = newresult.flat().filter(item => item !== null);
 const finalres = [...new Set(flattenedResult)].map(item => typeof item === 'string' ? item.toLowerCase() : '');
-
-console.log(setJsonlist,"fieldresultssss")
-
-
-
-
-
-  // const result=[...new Set(isHeaderInUpdatedItems)]
-  
-  
   
   let  domainsName=getdomainname(finalres,tableData,fieldfinalresult);
   domainsName=[...new Set(domainsName)];
 
-  console.log(domainsName,"doooomains")
 
- 
+
+
  
     const fileName = 'example.xlsx';
     const Exportexcel = () => {
@@ -128,10 +136,9 @@ useEffect(()=>{
 const initialActiveDomain = tabs?.length > 0 ? tabs[0] : 'Claims';
     setActiveLink(`/${initialActiveDomain}`);
     setActiveDomain(initialActiveDomain);
+    
 },[tabs])
 
-
-  
 
 
   return (
@@ -149,8 +156,6 @@ const initialActiveDomain = tabs?.length > 0 ? tabs[0] : 'Claims';
                 >
                  <span className={domainsName.includes(domain.toLowerCase()) && updateTable? "bullet green" : "bullet grey"}></span>
                 <span className='domains'> {domain}</span>
-                  
-                
               
                 </div>
               

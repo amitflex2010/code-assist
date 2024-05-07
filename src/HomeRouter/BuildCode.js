@@ -18,13 +18,16 @@ import fstfrd from '../images/fast-forward.png'
 import dblarw from '../images/double-arrows.png'
 
 export default function Buildingcode() {
-  const { FetchData, dispatch } = useContext(AppContext);
+  const { FetchData, dispatch,setErrormsg,tableData } = useContext(AppContext);
   const [querydata, setQuerydata] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [textareaSize, setTextareaSize] = useState("850px"); // Initial size
   const[textareaheight,setTextareaheight]=useState("330px");
   const[flag,setFlag]=useState(false);
+  const[ qryresult,setQryresult]=useState('');
+ 
 
+ 
   const fileInputRef = useRef(null);
 
   const toggleCollapse = () => {
@@ -50,8 +53,11 @@ export default function Buildingcode() {
     setTextareaSize("100%");
     setTextareaheight("100%");
     setQuerydata(true);
-    }
     dispatch({type:'SET_BUILD_BUTTON',payload:true});
+   
+    }
+
+  
   };
 
   useEffect(() => {
@@ -60,9 +66,43 @@ export default function Buildingcode() {
 
   const textareafun=(e)=>{
     const data=e.target.value.length>0;
-    const qryresult=e.target.value;
+    let result=e.target.value;
     setFlag(data);
-    dispatch({type:'SET_SQL_QUERY',payload:qryresult});
+    setQryresult(result);
+    dispatch({type:'SET_SQL_QUERY',payload:result});
+    if ( tableData && Array.isArray(tableData) ){
+    if(data)
+    {
+      setQryresult('');
+      dispatch({type:'SET_BUILD_BUTTON',payload:false});
+      dispatch({ type: 'SET_TABLE_DATA', payload: tableData });
+    
+    }
+    else{
+      dispatch({type:'SET_ERROR_MSG',payload:''}) 
+      dispatch({type:'JSON_QUERY_LIST',payload:[]});
+      const resetData = tableData.map(row => ({
+        ...row,
+        rowData: (row.rowData||[]).map(field => ({
+          ...field,
+          selected: 'N',
+          summarized: 'None',
+          usedinfilter: 'N',
+          usedinjoin: 'N'
+        }))
+      }));
+      dispatch({ type: 'SET_TABLE_DATA', payload: resetData });
+      dispatch({ type: 'SET_UPDATE_TABLE', payload: false });
+     
+      console.log(tableData,"i want check the data ")
+    }
+  }
+     
+     
+     result=e.target.value;
+    setFlag(data);
+    setQryresult(result);
+    
   }
 
   return (
@@ -79,13 +119,13 @@ export default function Buildingcode() {
               type={"concept"}
             />
             </div>
-            <div className="arrowcls" style={{ position: 'relative', display: 'flex', justifyContent: 'flex-end', width: '100%' }} onClick={toggleCollapse}>
-              {/* {isOpen ? (
-                <span className="greatercls" title="collapse">&#x226B;</span> 
+            <div className="arrowcls" style={{ position: 'relative', display: 'flex', justifyContent: 'flex-end', width: '100%' }} >
+              {isOpen ? (
+                <span className="greatercls" title="collapse" onClick={toggleCollapse}>&#x226B;</span> 
               ) : (
-                <span className="greatercls" title="expand">&#x226A;</span>
-              )} */}
-             {isOpen ?(<img src={grtr} alt='Arrow' title="collapse" className="imgiconclss"/>):(<img src={dblarw} alt='fastford' title="expand" className="imgiconclss"/>)}
+                <span className="greatercls" title="expand" onClick={toggleCollapse}>&#x226A;</span>
+              )}
+             {/* {isOpen ?(<img src={dblarw} alt='Arrow' title="collapse" className="imgiconclss"/>):(<img src={grtr} alt='fastford' title="expand" className="imgiconclss"/>)} */}
             </div>
             <div>
             
@@ -104,6 +144,7 @@ export default function Buildingcode() {
       onChange={textareafun}
     ></textarea>
   </div>
+ 
   <div className="fileUploadBox" >
     <div htmlFor="fileInput" className="dottedBox" style={{ width:isOpen? "215%":"250%", height: "100%" }}>
       <div>
@@ -128,10 +169,9 @@ export default function Buildingcode() {
     />
   </div>
 </div>
-
-
-
-
+ {setErrormsg  && qryresult.length >0 &&(<div className="errorstatus">
+    <p style={{color:'red',fontWeight:"bold"}}>{setErrormsg}</p>
+  </div>)}
 
           <div className="buttonRow">
             <button className={flag?"Buildbtn":"Buildbtndisable"} onClick={buildquerydata} >Build Query</button>
@@ -143,7 +183,7 @@ export default function Buildingcode() {
           )}
           {querydata && flag && (
             <div className="output-container">
-              <Querybox handleOutpClick={handleOutpClick} sqldata={querydata} />
+              <Querybox handleOutpClick={handleOutpClick} sqldata={querydata} query={qryresult} />
             </div>
           )}
         </div>

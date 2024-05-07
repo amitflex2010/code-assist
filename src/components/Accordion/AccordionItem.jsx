@@ -33,8 +33,8 @@ const AccordionItem = ({ header, isOpen, onClick, data }) => {
 
   const updateTableRows = () => {
    const { domain, tableName } = data;
+  
 
-   
     tableData.forEach(rowData=>{
       if(rowData.field_names)
       {
@@ -50,37 +50,46 @@ const AccordionItem = ({ header, isOpen, onClick, data }) => {
       }
     })
    
-  
+  console.log(tableData,"tabledata values")
     const results = setJsonlist.map(item => {
       return item.Fields.map(field => field.table_name);
   });
+
+ 
   
-   
     const updatedData = tableData.map((defaultItem) => {
       const updatedItems = setJsonlist.map(item => {
         const result = item.Fields.filter((fld) => {
-          if (fld.table_name && typeof fld.table_name === 'object') {
+          if ((fld.table_name && typeof fld.table_name === 'object') ) {
             
-              return fld.table_name[Object.keys(fld.table_name)[0]] === defaultItem.table_name.toUpperCase() && defaultItem.rowData.filter(row => row.fieldName === fld.column_name);
+          
+              return (fld.table_name[Object.keys(fld.table_name)[0]].toUpperCase() === defaultItem.table_name.toUpperCase() && defaultItem.rowData.filter(row => row.fieldName === fld.column_name));
           }
+          else if(fld.table_name && typeof fld.table_name)
+          {
+           
+            return  (fld.table_name.toUpperCase() === defaultItem.table_name.toUpperCase() && defaultItem.rowData.filter(row => row.fieldName === fld.column_name))
+          }
+          else
           return false; // Return false if table_name is null or not an object
       });
           return result;
       });
-
-     
-
        
       if (updatedItems.length > 0 && updateTable) {
+        
+          
+          //console.log(newupdatedItems,"newupdated items ")
         defaultItem.rowData.forEach(row => {
             // Find matching items in updatedItems for the current row
-            const matchingItems = updatedItems.flatMap(item => item.filter(mtc => mtc.column_name === row.fieldName));
-          
+            const matchingItems = updatedItems.flatMap(item => item.filter(mtc => mtc.column_name.toUpperCase() === row.fieldName.toUpperCase()));
+         
             if (matchingItems.length > 0) {
                 // Assuming only one matching item is considered
+             
                 const matchingItem = matchingItems[0];
                
-              
+                
                 // Update properties of row with matchingItem values
                 row.selected = matchingItem.Selected;
                 row.summarized = matchingItem.Summarized;
@@ -98,11 +107,17 @@ const AccordionItem = ({ header, isOpen, onClick, data }) => {
   setTableRows(updatedData);
   const newresult=setJsonlist.map((item)=>{
     const formerresult=item.Fields.map(fi=>{
-      return fi.table_name?Object.values(fi.table_name)[0]:null
+      if(typeof fi.table_name === 'object')
+      return (fi.table_name?Object.values(fi.table_name)[0]:null)
+    else{
+      return fi.table_name?fi.table_name:null;
+    }
     })
     return formerresult
   });
+
   const flattenedResult = newresult.flat().filter(item => item !== null);
+ 
 const finalres = [...new Set(flattenedResult)].map(item => typeof item === 'string' ? item.toLowerCase() : '');
 
   

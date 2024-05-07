@@ -13,6 +13,7 @@ export const initialState = {
  sqlQuery:'',
  setbuildquery:false,
  setJsonlist:[],
+ setErrormsg:'',
 };
 
 export const reducer = (state, action) => {
@@ -79,6 +80,11 @@ export const reducer = (state, action) => {
           ...state,
           setJsonlist:action.payload,
         }
+        case 'SET_ERROR_MSG':
+          return{
+            ...state,
+            setErrormsg:action.payload,
+          }
 
       
      

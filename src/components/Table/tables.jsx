@@ -15,6 +15,7 @@ const Table = ({ tableValues, onDoubleClick, onDropdownChange,data }) => {
     //setFinalvalue(onDoubleClick);
     
   };
+  console.log(tableData,"tabledata form tr=abl")
   
   const filtereddata=tableData.filter((item,index)=>
     {

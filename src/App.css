@@ -256,7 +256,7 @@
   }
 
   .li-style{
-    width: 26%;
+    width: auto;
     cursor: pointer;
   }
 
@@ -354,7 +354,7 @@
 
   .accordion {
     width: 100%;
-    max-width: 600px;
+   
     margin-top: 20px;
   }
 
@@ -512,11 +512,12 @@
   margin-left: 180px;
 }
 .greatercls{
-  font-size:40px;
+  font-size:44px;
   color:orangered;
   cursor: pointer;
   margin-right: 0; /* Remove margin */
   padding-right: 0;
+  font-weight:bold;
 }
 ::-webkit-scrollbar{
   width: .55rem;
@@ -566,6 +567,7 @@ width:1rem;
   display: inline-block;
   margin-left:20px;
   font-size:19px;
+  text-transform: capitalize;
 }
 .hrnzcls{
  color:dimgray
